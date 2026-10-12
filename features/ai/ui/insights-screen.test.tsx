@@ -40,7 +40,7 @@ function Controls() {
 }
 function setup() {
   const fetchMock = vi.fn().mockImplementation(async (_url: string, init: RequestInit) => {
-    if (!init.method) return Response.json({ status: "unconfigured", serverTestsEnabled: false });
+    if (!init.method) return Response.json({ status: "unconfigured", serverTestsEnabled: false, deployment: { mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true } });
     const body = JSON.parse(String(init.body));
     return Response.json(body.action === "preview" ? { ok: true, review } : { ok: true, insight });
   });
@@ -50,6 +50,7 @@ function setup() {
 }
 async function inspect() {
   fireEvent.click(screen.getByRole("button", { name: "Configure test session" }));
+  await waitFor(() => expect(screen.getByRole("button", { name: "Review evidence before sending" })).toBeEnabled());
   fireEvent.click(screen.getByRole("button", { name: "Review evidence before sending" }));
   return await screen.findByRole("dialog", { name: "Review this exact transmission" });
 }
@@ -62,7 +63,7 @@ test("unconfigured insights are truthful and never invoke a provider automatical
   const mock = setup(); await waitFor(() => expect(mock).toHaveBeenCalledTimes(1));
   expect(screen.getByRole("button", { name: "Review evidence before sending" })).toBeDisabled();
   expect(screen.getByText(/No provider is ready/)).toBeVisible(); expect(screen.getByText(/No AI-generated insights yet/)).toBeVisible();
-  expect(screen.getByRole("link", { name: /Configure an AI provider/ })).toHaveAttribute("href", "/settings");
+  expect(screen.getByRole("link", { name: /Configure an AI provider/ })).toHaveAttribute("href", "/app/settings");
 });
 test("review displays exact prompt and destination but never submits credentials or generates before approval", async () => {
   const storage = vi.spyOn(Storage.prototype, "setItem"); const mock = setup(); await inspect();
@@ -110,7 +111,7 @@ test("provider failures use safe messages without response-body disclosure", asy
   expect(await screen.findByRole("alert")).toHaveTextContent("provider rejected the API key"); expect(document.body.textContent).not.toContain(key);
 });
 test("navigation retains keys and drafts only while the shared application layout exists", async () => {
-  const mock = vi.fn().mockImplementation(async () => Response.json({ status: "unconfigured", serverTestsEnabled: false })); vi.stubGlobal("fetch", mock);
+  const mock = vi.fn().mockImplementation(async () => Response.json({ status: "unconfigured", serverTestsEnabled: false, deployment: { mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true } })); vi.stubGlobal("fetch", mock);
   function Navigation() {
     const [settings, setSettings] = useState(true);
     return <><button onClick={() => setSettings(!settings)}>Navigate</button>{settings ? <ProviderSettings /> : <InsightsScreen options={options} />}</>;
@@ -130,7 +131,7 @@ test("server rendering starts without credentials or generated results", () => {
   expect(html).not.toContain(key); expect(html).toContain("No AI-generated insights yet");
 });
 test("cached inactive routes discard approval while retaining layout credentials", async () => {
-  const mock = vi.fn().mockImplementation(async (_url: string, init: RequestInit) => Response.json(init.method ? { ok: true, review } : { status: "unconfigured", serverTestsEnabled: false }));
+  const mock = vi.fn().mockImplementation(async (_url: string, init: RequestInit) => Response.json(init.method ? { ok: true, review } : { status: "unconfigured", serverTestsEnabled: false, deployment: { mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true } }));
   vi.stubGlobal("fetch", mock);
   const view = render(<AiSessionProvider><Controls /><Activity mode="visible"><InsightsScreen options={options} /></Activity></AiSessionProvider>);
   await inspect(); fireEvent.click(screen.getByRole("checkbox"));

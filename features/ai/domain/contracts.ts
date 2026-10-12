@@ -15,6 +15,11 @@ export const configurationSchema = z.strictObject({
   selection: selectionSchema.optional(),
   serverTestsEnabled: z.boolean(),
   serverInsightsEnabled: z.boolean().optional(),
+  deployment: z.strictObject({
+    mode: z.enum(["public-demo", "self-hosted"]),
+    providerRequestsEnabled: z.boolean(),
+    configurationValid: z.boolean(),
+  }),
 });
 export type PublicConfiguration = z.infer<typeof configurationSchema>;
 export const errorMessages = {
@@ -30,6 +35,7 @@ export const errorMessages = {
   malformed_response: "The provider returned an unexpected or incomplete response.",
   request_rejected: "The provider rejected the request. Check model access, billing and account configuration.",
   configuration_unavailable: "Server configuration is unavailable or browser use of it is disabled.",
+  provider_requests_disabled: "AI provider requests are disabled by this deployment. Deterministic demo features remain available.",
   forbidden: "AI requests require the configured same-origin application.",
   body_too_large: "The request exceeds the AI request size limit.",
   review_expired: "The review expired, changed or was already used. Review the evidence again.",

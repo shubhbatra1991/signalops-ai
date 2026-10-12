@@ -6,7 +6,7 @@ export function EventsPanel({ model }: { model: DemoScreenModel }) {
   const { explorer, filters } = model;
   const href = (page: number) => analyticsHref("/events", filters, { page });
   return <section className="analytics-card"><div className="card-heading"><div><h2>Event explorer</h2><p>{explorer.total} matching demonstration events · {explorer.pageSize} per page</p></div></div>
-    {!explorer.total ? <div className="empty-panel"><h3>No matching events</h3><p>Try a different search, customer, event type or date range.</p><Link className="text-link" href="/events">Reset all event filters</Link></div> : <>
+    {!explorer.total ? <div className="empty-panel"><h3>No matching events</h3><p>Try a different search, customer, event type or date range.</p><Link className="text-link" href="/app/events">Reset all event filters</Link></div> : <>
       <div className="table-scroll" role="region" aria-label="Event results" tabIndex={0}><table className="events-table"><caption>Fictional events sorted by occurrence time, with event ID ascending for ties</caption><thead><tr>
         <th scope="col" aria-sort={filters.sort === "asc" ? "ascending" : "descending"}><Link className="text-link" href={analyticsHref("/events", filters, { sort: filters.sort === "asc" ? "desc" : "asc", page: 1 })} aria-label={`Sort timestamp ${filters.sort === "asc" ? "newest" : "oldest"} first`}>Timestamp (UTC) {filters.sort === "asc" ? "↑" : "↓"}</Link></th>
         <th scope="col">Event</th><th scope="col">Customer identifier</th><th scope="col">Properties & details</th></tr></thead><tbody>

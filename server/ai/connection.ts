@@ -2,7 +2,7 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { connectionRequestSchema, selectionSchema } from "@/features/ai/domain/contracts";
 import { connectionPrompt, connectionTokenLimit } from "@/features/ai/domain/providers";
-import { readAiConfiguration } from "./configuration";
+import { readAiConfiguration, readDeploymentPolicy } from "./configuration";
 import { generateText } from "./adapters";
 import { AiError } from "./errors";
 import { readBoundedJson } from "./transport";
@@ -43,6 +43,9 @@ export function assertSameOrigin(request: Request, env: Readonly<Record<string, 
   }
 }
 export const responseHeaders = { "Cache-Control": "no-store, max-age=0", "Pragma": "no-cache", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer" };
+export function assertProviderRequestsEnabled(env: Readonly<Record<string, string | undefined>> = process.env) {
+  if (!readDeploymentPolicy(env).providerRequestsEnabled) throw new AiError("provider_requests_disabled", 403);
+}
 
 export async function connectionPost(request: Request) {
   const requestId = randomUUID();
@@ -53,6 +56,7 @@ export async function connectionPost(request: Request) {
     if (request.headers.get("x-signalops-action") !== "test-connection" ||
         request.headers.get("content-type")?.split(";")[0].trim() !== "application/json" ||
         request.headers.has("content-encoding") || new URL(request.url).search) throw new AiError("invalid_request", 400);
+    assertProviderRequestsEnabled();
     release = takeBudget();
     const length = request.headers.get("content-length");
     if (length && (!/^\d+$/.test(length) || Number(length) > 4096)) throw new AiError("body_too_large", 413);
@@ -89,6 +93,6 @@ export function configurationGet(request: Request) {
     if (request.headers.get("x-signalops-action") !== "configuration") throw new AiError("forbidden", 403);
     return Response.json(readAiConfiguration().publicConfiguration, { headers: responseHeaders });
   } catch {
-    return Response.json({ status: "unconfigured", serverTestsEnabled: false }, { status: 403, headers: responseHeaders });
+    return Response.json({ status: "unconfigured", serverTestsEnabled: false, deployment: readDeploymentPolicy() }, { status: 403, headers: responseHeaders });
   }
 }

@@ -12,6 +12,7 @@ export function ProviderSettings() {
   const [notice, setNotice] = useState("No provider selected. Nothing has been sent.");
   const [error, setError] = useState(false);
   const activeRequest = useRef<AbortController | null>(null);
+  const providerRequestsEnabled = configuration?.deployment.providerRequestsEnabled === true;
   useEffect(() => () => { activeRequest.current?.abort(); }, []);
   function clear() {
     activeRequest.current?.abort(); activeRequest.current = null;
@@ -28,7 +29,7 @@ export function ProviderSettings() {
   async function testConnection(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const credential = credentials();
-    if (!provider || busy || !credential) return;
+    if (!providerRequestsEnabled || !provider || busy || !credential) return;
     const controller = new AbortController(); activeRequest.current = controller;
     setBusy(true); setError(false); setNotice("Testing with the synthetic prompt only…");
     try {
@@ -52,23 +53,24 @@ export function ProviderSettings() {
     <h2 id="ai-provider-heading">AI Provider</h2>
     <p>Bring your own API key. Connection testing sends only the synthetic prompt below through this self-hosted server to your selected provider. Provider charges may apply.</p>
     <p className="data-notice">Connection tests send no feedback, events or customer evidence. AI Insights separately requires an evidence review and explicit approval for each generation.</p>
+    {configuration && !providerRequestsEnabled && <p className="warning-note" role="status">AI provider requests are disabled by this deployment. Deterministic analytics, feedback, missions and impact features remain available. A self-hosted operator must explicitly enable provider requests on the server.</p>}
     <p>Server configuration: {configurationFailed ? "unavailable — check application origin configuration" : !configuration ? "checking…" : configuration.status === "configured" ? `configured · ${configuration.serverTestsEnabled ? "connection tests enabled" : "browser-triggered tests disabled"}` : configuration.status}.</p>
     <form onSubmit={testConnection} aria-label="AI provider configuration" className="ai-provider-form">
-      <label>Configuration mode<select value={mode} onChange={(event) => changeMode(event.target.value)} disabled={busy}>
+      <label>Configuration mode<select value={mode} onChange={(event) => changeMode(event.target.value)} disabled={busy || !providerRequestsEnabled}>
         <option value="browser">Browser memory only</option><option value="environment" disabled={!configuration?.serverTestsEnabled && !configuration?.serverInsightsEnabled}>Server environment</option>
       </select></label>
-      <label>Provider<select value={provider} disabled={busy || mode === "environment"} onChange={(event) => {
+      <label>Provider<select value={provider} disabled={busy || mode === "environment" || !providerRequestsEnabled} onChange={(event) => {
         clear(); const value = event.target.value; if (isProvider(value)) { configure({ provider: value, model: providers[value].model }); setNotice("Provider selected; connection has not been tested."); }
       }} required><option value="">Select a provider</option>{Object.entries(providers).map(([id, item]) => <option key={id} value={id}>{item.label}</option>)}</select></label>
-      <label>Model<select value={model} disabled={busy || !selected || mode === "environment"} onChange={(event) => { configure({ model: event.target.value }); setNotice("Model selected; connection has not been tested."); }} required>
+      <label>Model<select value={model} disabled={busy || !selected || mode === "environment" || !providerRequestsEnabled} onChange={(event) => { configure({ model: event.target.value }); setNotice("Model selected; connection has not been tested."); }} required>
         {!selected && <option value="">Select a provider first</option>}{selected && <option value={selected.model}>{selected.model}</option>}
       </select></label>
-      {mode === "browser" && <label>API key<input value={apiKey} type="password" autoComplete="off" spellCheck={false} maxLength={1024} disabled={busy} required aria-describedby="key-handling" onChange={(event) => { configure({ apiKey: event.target.value }); setNotice("Browser key entered; connection has not been tested."); setError(false); }} /></label>}
+      {mode === "browser" && <label>API key<input value={apiKey} type="password" autoComplete="off" spellCheck={false} maxLength={1024} disabled={busy || !providerRequestsEnabled} required aria-describedby="key-handling" onChange={(event) => { configure({ apiKey: event.target.value }); setNotice("Browser key entered; connection has not been tested."); setError(false); }} /></label>}
       <p id="key-handling">Browser keys stay only in this application session’s memory across client navigation. Disconnect or full reload clears them. Explicit tests or approved insight requests send them through this server. Do not save them in a password manager. The host and browser extensions must be trusted; this is not a zero-retention claim.</p>
       {mode === "environment" && <p>Operator-enabled insight generation: {configuration?.serverInsightsEnabled ? "enabled" : "disabled"}. Selecting this mode explicitly permits use of the operator’s credential; each insight still needs its own approval.</p>}
-      <div className="filter-actions"><button type="submit" className="primary-button" disabled={busy || !selected || (mode === "browser" ? !hasKey : !configuration?.serverTestsEnabled)}>{busy ? "Testing…" : "Test connection"}</button><button type="button" className="secondary-button" onClick={clear}>Disconnect / Clear</button></div>
+      <div className="filter-actions"><button type="submit" className="primary-button" disabled={!providerRequestsEnabled || busy || !selected || (mode === "browser" ? !hasKey : !configuration?.serverTestsEnabled)}>{busy ? "Testing…" : "Test connection"}</button><button type="button" className="secondary-button" onClick={clear}>Disconnect / Clear</button></div>
     </form>
-    <p role={error ? "alert" : "status"} aria-live="polite">{notice}</p>
+    <p role={error ? "alert" : "status"} aria-live="polite" className={`status-message${error ? " status-error" : ""}`}>{notice}</p>
     {selected && <p>Destination: <strong>{selected.destination}</strong> · <a className="text-link" href={selected.docs} target="_blank" rel="noreferrer">Official model documentation</a>. Curated text-only model; account availability and provider limits vary. No fallback.</p>}
     <h3>Connection-test payload</h3><blockquote>{connectionPrompt}</blockquote>
     <p>One request, maximum 32 output tokens, no tools, no automatic retries. Provider response text is discarded on the server.</p>

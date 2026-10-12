@@ -7,7 +7,7 @@ import { feedbackThemes } from "../domain/catalog";
 export function FeedbackExplorer({ model }: { model: FeedbackScreenModel }) {
   const { filters, explorer } = model;
   return <section className="analytics-card feedback-explorer" aria-label="Feedback explorer"><div className="card-heading"><div><h2>Feedback explorer</h2><p>{explorer.total} matching fictional records · {explorer.pageSize} per page</p></div></div>
-    {!explorer.total && <div className="empty-panel"><h3>No matching feedback</h3><p>Try another customer, date range, category, source, label or search.</p><Link className="text-link" href="/feedback">Reset all feedback filters</Link></div>}
+    {!explorer.total && <div className="empty-panel"><h3>No matching feedback</h3><p>Try another customer, date range, category, source, label or search.</p><Link className="text-link" href="/app/feedback">Reset all feedback filters</Link></div>}
     <ol className="feedback-list">{model.details.map(({ record, context }) => <li key={record.id}>
       <article aria-label={`Feedback ${record.id}`}><div className="feedback-record-heading"><span className="badge">{record.category}</span><span>{record.source}</span><time dateTime={record.submittedAt}>{record.submittedAt.slice(0, 10)} {record.submittedAt.slice(11, 19)} UTC</time></div>
         <blockquote>{record.text}</blockquote><p>{record.customerId} · {record.id} · Sentiment: {record.sentiment ?? "unlabelled"}</p>

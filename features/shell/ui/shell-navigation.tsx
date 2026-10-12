@@ -3,13 +3,14 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useRef } from "react";
 import { navigation } from "../navigation";
+import { productHref } from "../product-routes";
 import { ThemeControl } from "@/features/theme/ui/theme-control";
 
 function NavLinks({ onNavigate, query = "" }: { onNavigate?: () => void; query?: string }) {
   const pathname = usePathname();
-  return navigation.map((item) => <Link key={item.href} href={item.href + (["/", "/events", "/funnels", "/feedback"].includes(item.href) && query ? `?${query}` : "")} className="nav-link" aria-current={pathname === item.href ? "page" : undefined} onClick={onNavigate}>
+  return navigation.map((item) => { const href = productHref(item.href); return <Link key={item.href} href={href + (["/", "/events", "/funnels", "/feedback"].includes(item.href) && query ? `?${query}` : "")} className="nav-link" aria-current={pathname === href ? "page" : undefined} onClick={onNavigate}>
     <span className="nav-symbol" aria-hidden="true">{item.symbol}</span>{item.title}
-  </Link>);
+  </Link>; });
 }
 function ContextNavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const search = useSearchParams();
@@ -25,7 +26,7 @@ function Navigation({ onNavigate }: { onNavigate?: () => void }) {
 }
 export function Sidebar() {
   return <aside className="sidebar">
-    <Link href="/" className="brand"><span className="brand-mark" aria-hidden="true">S</span>SignalOps<span className="brand-ai">AI</span></Link>
+    <Link href="/app" className="brand"><span className="brand-mark" aria-hidden="true">S</span>SignalOps<span className="brand-ai">AI</span></Link>
     <div className="sidebar-caption">PRODUCT INTELLIGENCE</div>
     <nav aria-label="Primary navigation"><Navigation /></nav>
     <div className="sidebar-footer"><span className="status-dot" aria-hidden="true" />Application preview<p>Your space for evidence-led decisions.</p></div>
@@ -33,7 +34,8 @@ export function Sidebar() {
 }
 export function ShellHeader() {
   const pathname = usePathname();
-  const title = navigation.find((item) => item.href === pathname)?.title ?? "SignalOps-AI";
+  const semanticPath = pathname === "/app" ? "/" : pathname.replace(/^\/app/, "");
+  const title = navigation.find((item) => item.href === semanticPath)?.title ?? "SignalOps-AI";
   const mobileMenu = useRef<HTMLDetailsElement>(null);
   return <header className="shell-header">
     <div className="header-location"><span className="header-product">SignalOps-AI</span><span aria-hidden="true">/</span><span>{title}</span></div>

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 import { generateText } from "./adapters";
-import { readAiConfiguration } from "./configuration";
+import { readAiConfiguration, readDeploymentPolicy } from "./configuration";
 import { assertSameOrigin, configurationGet, connectionPost, createConnectionLimiter } from "./connection";
 import { readBoundedJson } from "./transport";
 import { connectionPrompt, providers, type ProviderId } from "@/features/ai/domain/providers";
@@ -22,6 +22,7 @@ function providerResponse(provider: ProviderId) {
 let testClock = Date.parse("2050-01-01T00:00:00.000Z");
 beforeEach(() => {
   vi.stubEnv("AI_APP_ORIGIN", ""); vi.stubEnv("AI_PROVIDER", ""); vi.stubEnv("AI_MODEL", ""); vi.stubEnv("AI_ALLOW_SERVER_KEY_TESTS", "false");
+  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", "self-hosted"); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "true");
   // Distinct minute per test resets the shared minute budget without a test-only production reset API.
   vi.useFakeTimers(); testClock += 86_400_000; vi.setSystemTime(testClock);
   vi.spyOn(console, "info").mockImplementation(() => {}); vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -96,13 +97,34 @@ test.each(["", "with spaces", "line\nbreak", "x".repeat(1025)])("rejects malform
   expect(connectionRequestSchema.safeParse({ ...browserBody, apiKey }).success).toBe(false);
 });
 test("environment configuration is optional, validated and does not expose secrets", () => {
-  expect(readAiConfiguration({}).publicConfiguration).toEqual({ status: "unconfigured", selection: undefined, serverTestsEnabled: false });
+  expect(readAiConfiguration({}).publicConfiguration).toEqual({
+    status: "unconfigured", selection: undefined, serverTestsEnabled: false,
+    deployment: { mode: "public-demo", providerRequestsEnabled: false, configurationValid: true },
+  });
   const env = { AI_PROVIDER: "openai", AI_MODEL: providers.openai.model, OPENAI_API_KEY: syntheticKey };
   const result = readAiConfiguration(env);
   expect(result.publicConfiguration.status).toBe("configured"); expect(result.publicConfiguration.serverTestsEnabled).toBe(false);
+  expect(result.credential).toBeUndefined();
   expect(JSON.stringify(result.publicConfiguration)).not.toContain(syntheticKey);
   expect(readAiConfiguration({ ...env, AI_ALLOW_SERVER_KEY_TESTS: "TRUE" }).publicConfiguration.status).toBe("invalid");
   expect(readAiConfiguration({ ...env, AI_MODEL: "wrong" }).credential).toBeUndefined();
+});
+test("deployment policy defaults public, requires explicit self-hosted enablement and fails closed", () => {
+  expect(readDeploymentPolicy({})).toEqual({ mode: "public-demo", providerRequestsEnabled: false, configurationValid: true });
+  expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "self-hosted" })).toMatchObject({ providerRequestsEnabled: false, configurationValid: true });
+  expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "self-hosted", AI_ENABLE_PROVIDER_REQUESTS: "true" }))
+    .toEqual({ mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true });
+  expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "public-demo", AI_ENABLE_PROVIDER_REQUESTS: "true" }))
+    .toEqual({ mode: "public-demo", providerRequestsEnabled: false, configurationValid: false });
+  expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "unexpected", AI_ENABLE_PROVIDER_REQUESTS: "TRUE" }))
+    .toEqual({ mode: "public-demo", providerRequestsEnabled: false, configurationValid: false });
+});
+test("public deployment rejects direct provider requests before budget or network access", async () => {
+  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", "public-demo"); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "true");
+  const mock = vi.fn(); vi.stubGlobal("fetch", mock);
+  const response = await connectionPost(request());
+  expect(response.status).toBe(403); expect(await response.json()).toMatchObject({ ok: false, code: "provider_requests_disabled" });
+  expect(mock).not.toHaveBeenCalled();
 });
 test.each(["https://evil.invalid", "null", "http://localhost:3201"])("rejects cross-origin %s", async (Origin) => {
   const fetchMock = vi.fn(); vi.stubGlobal("fetch", fetchMock);

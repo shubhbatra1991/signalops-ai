@@ -20,7 +20,7 @@ test("all feedback controls have accessible names and use a URL-backed GET form"
   }
   expect(screen.getByRole("searchbox", { name: "Search feedback" })).toHaveAttribute("maxLength", "80");
   expect(screen.getByRole("button", { name: "Apply filters" })).toHaveAttribute("type", "submit");
-  expect(screen.getByRole("link", { name: "Reset filters" })).toHaveAttribute("href", "/feedback");
+  expect(screen.getByRole("link", { name: "Reset filters" })).toHaveAttribute("href", "/app/feedback");
   expect(screen.getByText(/fictional, not live customer activity/)).toBeInTheDocument();
 });
 test("summary shows full selection, pagination preserves all feedback filters", async () => {
@@ -49,11 +49,11 @@ test("native detail reveals provenance, partial participation and scoped event l
   expect(within(detail).getByText(/no abandonment claim/)).toBeInTheDocument();
   const event = within(detail).getByRole("link", { name: /integration_failed · demo-customer-02:integration-failed-2/ });
   const url = new URL(event.getAttribute("href") ?? "", "https://demo.invalid");
-  expect(url.pathname).toBe("/events");
+  expect(url.pathname).toBe("/app/events");
   expect(url.searchParams.get("customer")).toBe("demo-customer-02");
   expect(url.searchParams.get("q")).toBe("demo-customer-02:integration-failed-2");
   expect(url.searchParams.get("range")).toBe("first-week");
-  expect(within(detail).getByRole("link", { name: "View customer funnel over full selected window" })).toHaveAttribute("href", expect.stringContaining("/funnels?"));
+  expect(within(detail).getByRole("link", { name: "View customer funnel over full selected window" })).toHaveAttribute("href", expect.stringContaining("/app/funnels?"));
 });
 test("missing event history is displayed as unknown, not inactivity or abandonment", async () => {
   vi.spyOn(demoRepository, "listEvents").mockResolvedValue([]);
@@ -66,7 +66,7 @@ test("empty results and insufficient recurring evidence provide reset and honest
   render(<FeedbackScreen model={await readFeedbackScreen({ q: "no-matching-record" })} />);
   expect(screen.getByRole("heading", { name: "No matching feedback" })).toBeInTheDocument();
   expect(screen.getByRole("heading", { name: "Not enough recurring evidence" })).toBeInTheDocument();
-  expect(screen.getByRole("link", { name: "Reset all feedback filters" })).toHaveAttribute("href", "/feedback");
+  expect(screen.getByRole("link", { name: "Reset all feedback filters" })).toHaveAttribute("href", "/app/feedback");
   expect(screen.queryByRole("navigation", { name: "Feedback pagination" })).toBeNull();
 });
 test("opportunities expose record counts and references without an AI or priority-score claim", async () => {

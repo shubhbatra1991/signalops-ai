@@ -37,7 +37,10 @@ export function AiSessionProvider({ children }: { children: ReactNode }) {
         if (!response.ok) throw new Error();
         const parsed = configurationSchema.safeParse(await response.json());
         if (!parsed.success) throw new Error();
-        if (!controller.signal.aborted) setConfiguration(parsed.data);
+        if (!controller.signal.aborted) {
+          setConfiguration(parsed.data);
+          if (!parsed.data.deployment.providerRequestsEnabled) disconnect();
+        }
       }).catch(() => { if (!controller.signal.aborted) setConfigurationFailed(true); });
     window.addEventListener("pagehide", disconnect);
     return () => { controller.abort(); window.removeEventListener("pagehide", disconnect); };

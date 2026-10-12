@@ -29,7 +29,7 @@ test.each(["overview", "events", "funnels"] as const)("%s has named filters and 
   render(<AnalyticsScreen page={page} model={await readDemoScreen({})} />);
   for (const name of ["Project", "Date range", "Customer", "Funnel"]) expect(screen.getByRole("combobox", { name })).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Apply filters" })).toBeInTheDocument();
-  expect(screen.getByRole("link", { name: "Reset filters" })).toHaveAttribute("href", page === "overview" ? "/" : `/${page}`);
+  expect(screen.getByRole("link", { name: "Reset filters" })).toHaveAttribute("href", page === "overview" ? "/app" : `/app/${page}`);
   expect(screen.getByText(/fictional, not live customer activity/)).toBeInTheDocument();
 });
 test("overview chart has an exact accessible table and context-preserving funnel link", async () => {
@@ -56,7 +56,7 @@ test("events expose sort, pagination and keyboard-native safe detail panels", as
 test("no-result UI provides an explicit reset action", async () => {
   render(<AnalyticsScreen page="events" model={await readDemoScreen({ q: "no-such-event" })} />);
   expect(screen.getByRole("heading", { name: "No matching events" })).toBeInTheDocument();
-  expect(screen.getByRole("link", { name: "Reset all event filters" })).toHaveAttribute("href", "/events");
+  expect(screen.getByRole("link", { name: "Reset all event filters" })).toHaveAttribute("href", "/app/events");
 });
 test("untrusted event properties render as text, never executable markup", async () => {
   const model = await readDemoScreen({});

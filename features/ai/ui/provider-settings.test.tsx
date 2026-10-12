@@ -10,7 +10,7 @@ import { providers } from "../domain/providers";
 const syntheticKey = "unit-test-value-not-a-credential";
 function ProviderSettings() { return <AiSessionProvider><Settings /></AiSessionProvider>; }
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); vi.restoreAllMocks(); });
-function setup(configuration = { status: "unconfigured", serverTestsEnabled: false }) {
+function setup(configuration = { status: "unconfigured", serverTestsEnabled: false, deployment: { mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true } }) {
   const fetchMock = vi.fn().mockResolvedValueOnce(Response.json(configuration)).mockResolvedValue(Response.json({ ok: true, provider: "openai", model: providers.openai.model, requestId: "test-request" }));
   vi.stubGlobal("fetch", fetchMock); render(<ProviderSettings />); return fetchMock;
 }
@@ -26,6 +26,14 @@ test("first visit has no selected provider or credential, and named accessible c
   expect(screen.getByLabelText("API key", { exact: true })).not.toHaveAttribute("name");
   expect(screen.getByRole("button", { name: "Test connection" })).toBeDisabled();
   expect(mock).toHaveBeenCalledTimes(1); expect(mock.mock.calls[0][1].method).toBeUndefined();
+});
+test("public deployment clearly disables all provider request controls", async () => {
+  setup({ status: "unconfigured", serverTestsEnabled: false, deployment: { mode: "public-demo", providerRequestsEnabled: false, configurationValid: true } });
+  await screen.findByText(/AI provider requests are disabled by this deployment/);
+  expect(screen.getByRole("combobox", { name: "Configuration mode" })).toBeDisabled();
+  expect(screen.getByRole("combobox", { name: "Provider" })).toBeDisabled();
+  expect(screen.getByLabelText("API key", { exact: true })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Test connection" })).toBeDisabled();
 });
 test.each(Object.entries(providers))("selecting %s supplies only its supported model and clears an earlier key", async (id, provider) => {
   setup(); await chooseOpenai();
@@ -64,7 +72,7 @@ test("disconnect clears key and provider; remount does not restore credentials",
   cleanup(); setup(); await screen.findByText("Server configuration: unconfigured."); expect(screen.getByLabelText("API key", { exact: true })).toHaveValue("");
 });
 test("server mode submits no browser key and Clear does not alter instance configuration", async () => {
-  const mock = vi.fn().mockResolvedValueOnce(Response.json({ status: "configured", selection: { provider: "openai", model: providers.openai.model }, serverTestsEnabled: true })).mockResolvedValue(Response.json({ ok: true, provider: "openai", model: providers.openai.model, requestId: "test-request" }));
+  const mock = vi.fn().mockResolvedValueOnce(Response.json({ status: "configured", selection: { provider: "openai", model: providers.openai.model }, serverTestsEnabled: true, deployment: { mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true } })).mockResolvedValue(Response.json({ ok: true, provider: "openai", model: providers.openai.model, requestId: "test-request" }));
   vi.stubGlobal("fetch", mock); render(<ProviderSettings />); await screen.findByText(/configured · connection tests enabled/);
   fireEvent.change(screen.getByRole("combobox", { name: "Configuration mode" }), { target: { value: "environment" } });
   expect(screen.queryByLabelText("API key", { exact: true })).toBeNull();
@@ -87,7 +95,7 @@ test("clear aborts pending request and ignores late success without uncontrolled
   await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Disconnected")); expect(mock).toHaveBeenCalledTimes(2);
 });
 test("cached React Activity preserves memory credentials across client navigation at the layout boundary", async () => {
-  const mock = vi.fn().mockImplementation(async () => Response.json({ status: "unconfigured", serverTestsEnabled: false }));
+  const mock = vi.fn().mockImplementation(async () => Response.json({ status: "unconfigured", serverTestsEnabled: false, deployment: { mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true } }));
   vi.stubGlobal("fetch", mock);
   const view = render(<AiSessionProvider><Activity mode="visible"><Settings /></Activity></AiSessionProvider>);
   await chooseOpenai(); expect(screen.getByRole("button", { name: "Test connection" })).toBeEnabled();

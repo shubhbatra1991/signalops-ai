@@ -13,6 +13,7 @@ let clock = Date.parse("2051-01-01T00:00:00.000Z");
 beforeEach(() => {
   vi.useFakeTimers(); clock += 86_400_000; vi.setSystemTime(clock);
   vi.stubEnv("AI_APP_ORIGIN", ""); vi.stubEnv("AI_ALLOW_SERVER_KEY_INSIGHTS", "false");
+  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", "self-hosted"); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "true");
   vi.spyOn(console, "info").mockImplementation(() => {}); vi.spyOn(console, "warn").mockImplementation(() => {});
 });
 afterEach(() => { vi.useRealTimers(); vi.restoreAllMocks(); vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
@@ -49,6 +50,16 @@ test("trusted feedback reconstruction is deterministic, minimized and matches ac
   const serialized = JSON.stringify(evidence);
   expect(serialized).not.toMatch(/customerId|relatedEventIds|properties|displayName|"text"/);
   for (const record of records) { expect(serialized).not.toContain(record.text); expect(serialized).not.toContain(record.customerId); }
+});
+test("public deployment rejects preview and generation directly without provider access", async () => {
+  const reviewed = await review();
+  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", "public-demo"); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "false");
+  const mock = vi.fn(); vi.stubGlobal("fetch", mock);
+  const preview = await insightsPost(request({ action: "preview", mode: "browser", provider: "openai", model: providers.openai.model, selection }));
+  expect(preview.status).toBe(403); expect(await preview.json()).toMatchObject({ ok: false, code: "provider_requests_disabled" });
+  const generation = await insightsPost(request(generate(reviewed.ticket)));
+  expect(generation.status).toBe(403); expect(await generation.json()).toMatchObject({ ok: false, code: "provider_requests_disabled" });
+  expect(mock).not.toHaveBeenCalled();
 });
 test("all offered opportunities and funnel issues reconstruct within their exact scope", async () => {
   const options = await readInsightOptions(); expect(options.options.length).toBeGreaterThan(10);

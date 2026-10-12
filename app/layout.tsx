@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ApplicationShell } from "@/features/shell/ui/application-shell";
 import { themeBootstrap } from "@/features/theme/theme-store";
-import { AiSessionProvider } from "@/features/ai/ui/ai-session";
+import { readCspNonce } from "@/server/security/security-headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,11 +16,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Overview · SignalOps-AI",
-  description: "A workspace for evidence-led product decisions.",
+  title: {
+    default: "SignalOps-AI · Evidence-led product intelligence",
+    template: "%s · SignalOps-AI",
+  },
+  description: "A source-available, self-hostable product intelligence application for turning customer signals into evidence-led product work.",
+  applicationName: "SignalOps-AI",
+  keywords: ["product analytics", "customer feedback", "BYOK AI", "self-hosted product intelligence"],
+  openGraph: {
+    title: "SignalOps-AI · From customer signals to product impact",
+    description: "Explore deterministic product analytics, evidence-grounded AI research, missions and impact measurement in a self-hostable demonstration.",
+    type: "website",
+  },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const nonce = readCspNonce((await headers()).get("x-nonce"));
   return (
     <html
       lang="en"
@@ -29,8 +40,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head><script id="theme-init" dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
-      <body><AiSessionProvider><ApplicationShell>{children}</ApplicationShell></AiSessionProvider></body>
+      <head><script id="theme-init" nonce={nonce} dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
+      <body>{children}</body>
     </html>
   );
 }

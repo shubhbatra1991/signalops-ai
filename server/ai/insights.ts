@@ -5,7 +5,7 @@ import { generationRequestSchema, insightDraftSchema, insightDraftStructureSchem
 import { selectionSchema } from "@/features/ai/domain/contracts";
 import { providers } from "@/features/ai/domain/providers";
 import { reconstructEvidence } from "./insight-evidence";
-import { assertSameOrigin, responseHeaders, takeBudget } from "./connection";
+import { assertProviderRequestsEnabled, assertSameOrigin, responseHeaders, takeBudget } from "./connection";
 import { readAiConfiguration } from "./configuration";
 import { readBoundedJson } from "./transport";
 import { generateText } from "./adapters";
@@ -61,6 +61,7 @@ export async function insightsPost(request: Request) {
     assertSameOrigin(request);
     if (request.headers.get("x-signalops-action") !== "insights" || request.headers.get("content-type")?.split(";")[0].trim() !== "application/json" ||
         request.headers.has("content-encoding") || new URL(request.url).search) throw new AiError("invalid_request", 400);
+    assertProviderRequestsEnabled();
     release = takeBudget();
     const length = request.headers.get("content-length");
     if (length && (!/^\d+$/.test(length) || Number(length) > 4096)) throw new AiError("body_too_large", 413);

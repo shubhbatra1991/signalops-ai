@@ -15,13 +15,14 @@ export function InsightsScreen({ options }: { options: InsightOptions }) {
   const [regeneration, setRegeneration] = useState(0);
   const available = options.options.filter((item) => item.selection.project === project && item.selection.range === range);
   const chosen = available.find((item) => `${item.selection.kind}:${item.selection.evidenceId}` === evidenceId) ?? available[0];
-  const configured = Boolean(credentials()) && (session.mode === "browser" || Boolean(configuration?.serverInsightsEnabled));
+  const providerRequestsEnabled = configuration?.deployment.providerRequestsEnabled === true;
+  const configured = providerRequestsEnabled && Boolean(credentials()) && (session.mode === "browser" || Boolean(configuration?.serverInsightsEnabled));
   return <>
     <div className="page-heading"><div><p className="eyebrow">Evidence-led research</p><h1>AI Insights</h1><p className="page-description">Review fictional evidence, then request a research draft from your chosen provider.</p></div></div>
     <p className="data-notice">Demonstration data only. No generated results exist until you approve a request. Observations are calculated; AI questions and actions remain unverified.</p>
     <section className="analytics-card ai-settings" aria-labelledby="evidence-heading">
       <h2 id="evidence-heading">Select evidence</h2>
-      {!configured && <p role="status">No provider is ready for insights. <Link className="text-link" href="/settings">Configure an AI provider in Settings</Link>. Analytics remain available without AI.</p>}
+      {!providerRequestsEnabled && configuration ? <p role="status">AI provider requests are disabled by this deployment. Deterministic evidence remains available without AI.</p> : !configured && <p role="status">No provider is ready for insights. <Link className="text-link" href="/app/settings">Configure an AI provider in Settings</Link>. Analytics remain available without AI.</p>}
       {session.provider && <p>Provider: {providers[session.provider].label} · {session.model} · {session.mode === "browser" ? "browser memory only" : "server environment"}.</p>}
       <div className="ai-provider-form">
         <label>Project<select value={project} onChange={(event) => { setProject(event.target.value); setEvidenceId(""); }}>{options.projects.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
@@ -48,6 +49,7 @@ export function InsightsScreen({ options }: { options: InsightOptions }) {
         <h4>Suggested action · AI-generated</h4><p>{insight.recommendedAction}</p>
         <button className="secondary-button" onClick={() => { setProject(insight.selection.project); setRange(insight.selection.range); setEvidenceId(`${insight.selection.kind}:${insight.selection.evidenceId}`); setRegeneration((previous) => previous + 1); document.getElementById("evidence-heading")?.scrollIntoView({ block: "start" }); }}>Select evidence to regenerate</button>
         <p>Review and approve again above before another request.</p>
+        <Link className="text-link" href={`/app/missions?insight=${encodeURIComponent(insight.id)}`}>Review proposal as a mission</Link>
       </article>)}</div>
     </section>
   </>;
@@ -103,7 +105,7 @@ function InsightInteraction({ selection, configured }: { selection: EvidenceSele
   }
   return <div className="insight-interaction">
     <div className="filter-actions"><button ref={reviewButton} className="primary-button" disabled={!configured || busy} onClick={() => void request("preview")}>Review evidence before sending</button>{busy && <button className="secondary-button" onClick={cancel}>Cancel request</button>}</div>
-    <p role={failed ? "alert" : "status"} aria-live="polite">{notice}</p>
+    <p role={failed ? "alert" : "status"} aria-live="polite" className={`status-message${failed ? " status-error" : ""}`}>{notice}</p>
     <dialog ref={dialog} aria-labelledby="review-heading" aria-describedby="review-privacy" className="insight-review" onCancel={(event) => { event.preventDefault(); closeReview(); }}>
       {review && <><h2 id="review-heading">Review this exact transmission</h2>
         <p>{providers[review.provider].label} · {review.model} · {review.destination}</p>

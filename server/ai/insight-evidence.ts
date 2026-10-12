@@ -52,7 +52,7 @@ export async function reconstructEvidence(selection: EvidenceSelection) {
     const opportunity = evidence.feedbackSummary.opportunities.find((item) => item.id === selection.evidenceId);
     if (!opportunity) throw new AiError("invalid_evidence", 400);
     query.set("theme", opportunity.id);
-    const facts = [{ id: `theme:${opportunity.id}`, observation: `${opportunity.label}: ${opportunity.recordCount} feedback records from ${opportunity.contributors} distinct contributors in the selected UTC window. These tags are fixture-authored.`, href: `/feedback?${query}` }];
+    const facts = [{ id: `theme:${opportunity.id}`, observation: `${opportunity.label}: ${opportunity.recordCount} feedback records from ${opportunity.contributors} distinct contributors in the selected UTC window. These tags are fixture-authored.`, href: `/app/feedback?${query}` }];
     return { ...base, population: evidence.population, facts,
       annotations: evidence.sourceMetadata.annotations, sources: evidence.sourceMetadata.sources,
       coverage: evidence.coverage,
@@ -73,7 +73,7 @@ export async function reconstructEvidence(selection: EvidenceSelection) {
   query.set("funnel", funnel.id);
   const previous = result.steps[index - 1].customers;
   return { ...base, population: "unique-first-entry-customers-in-selected-event-window",
-    facts: [{ id: `funnel:${step.stepId}`, observation: `${step.name}: ${step.customers} of ${previous} customers at the previous step progressed; ${step.dropOffCount} did not progress within the observation window (${step.dropOffRate.toFixed(1)}%). This is observed noncompletion, not abandonment.`, href: `/funnels?${query}` }],
+    facts: [{ id: `funnel:${step.stepId}`, observation: `${step.name}: ${step.customers} of ${previous} customers at the previous step progressed; ${step.dropOffCount} did not progress within the observation window (${step.dropOffRate.toFixed(1)}%). This is observed noncompletion, not abandonment.`, href: `/app/funnels?${query}` }],
     analytics: { algorithmVersion: result.algorithmVersion, countingUnit: result.countingUnit,
       conversionWindowMs: result.conversionWindowMs, entrants: result.entrants,
       previousStepCustomers: previous, stepCustomers: step.customers, dropOffCount: step.dropOffCount,

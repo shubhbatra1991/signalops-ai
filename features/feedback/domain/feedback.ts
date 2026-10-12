@@ -30,7 +30,7 @@ export function feedbackHref(filters: FeedbackFilters, changes: Partial<Feedback
   }
   query.set("sort", next.sort);
   query.set("page", String(next.page));
-  return `/feedback?${query}`;
+  return `/app/feedback?${query}`;
 }
 export interface FeedbackQuery extends ProjectScope {
   readonly range: DateRange;
