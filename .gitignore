@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/.vitest/
 
 # next.js
 /.next/
@@ -40,9 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-docs/*
+/docs/
 AGENTS.md
 
 # Private engineering and agent documentation
 .internal/
-.github/copilot-instructions.md
+/.github/copilot-instructions.md
