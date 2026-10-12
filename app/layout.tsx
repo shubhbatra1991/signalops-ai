@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ApplicationShell } from "@/features/shell/ui/application-shell";
 import { themeBootstrap } from "@/features/theme/theme-store";
+import { AiSessionProvider } from "@/features/ai/ui/ai-session";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head><script id="theme-init" dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
-      <body><ApplicationShell>{children}</ApplicationShell></body>
+      <body><AiSessionProvider><ApplicationShell>{children}</ApplicationShell></AiSessionProvider></body>
     </html>
   );
 }
