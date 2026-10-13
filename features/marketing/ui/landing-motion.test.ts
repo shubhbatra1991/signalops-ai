@@ -8,12 +8,12 @@ describe("landing motion preferences", () => {
 
   test("keeps non-reduced initial content visible while using layout-neutral transforms", () => {
     const config = revealMotion(false, 0.1, 16);
-    expect(config.initial).toEqual({ opacity: 0.08, y: 16 });
+    expect(config.initial).toEqual({ y: 16 });
     expect(config.transition).toMatchObject({ duration: 0.64, delay: 0.1 });
   });
 
-  test("uses a clearly observable hero movement while preserving a stable final state", () => {
-    expect(heroItemVariants.hidden).toEqual({ opacity: 0.08, y: 28 });
-    expect(heroItemVariants.visible).toMatchObject({ opacity: 1, y: 0, transition: { duration: 0.64 } });
+  test("uses a visible hero movement without reducing text contrast", () => {
+    expect(heroItemVariants.hidden).toEqual({ y: 28 });
+    expect(heroItemVariants.visible).toMatchObject({ y: 0, transition: { duration: 0.64 } });
   });
 });

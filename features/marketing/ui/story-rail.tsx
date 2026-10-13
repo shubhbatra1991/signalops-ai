@@ -80,8 +80,8 @@ export function StoryRail() {
       role="tabpanel"
       aria-labelledby={`${prefix}-tab-${active}`}
       data-motion-workflow-panel={step.title}
-      initial={reduced ? false : { opacity: 0.18, x: direction * 28 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={reduced ? false : { x: direction * 28 }}
+      animate={{ x: 0 }}
       transition={reduced ? { duration: 0 } : { duration: 0.48, ease }}
     >
       <div>

@@ -45,6 +45,9 @@ test("browser BYOK test uses mocked transport and never persists its key", async
   await page.getByRole("link", { name: "Switch experience" }).first().click();
   await expect(page).toHaveURL(/\/start$/);
   await page.getByRole("link", { name: /Open guest demo/ }).click();
-  await page.goto("/demo/settings");
+  await expect(page).toHaveURL(/\/demo$/);
+  await expect(page.getByRole("heading", { name: "Overview", exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "Settings" }).click();
+  await expect(page).toHaveURL(/\/demo\/settings$/);
   await expect(page.getByRole("textbox", { name: "API key" })).toHaveValue("");
 });

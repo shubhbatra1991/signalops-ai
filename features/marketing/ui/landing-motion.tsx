@@ -17,14 +17,14 @@ import { AppIcon, type AppIconName } from "@/features/icons/app-icon";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export const heroItemVariants = {
-  hidden: { opacity: 0.08, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.64, ease } },
+  hidden: { y: 28 },
+  visible: { y: 0, transition: { duration: 0.64, ease } },
 };
 
 export function revealMotion(reduced: boolean, delay = 0, distance = 24) {
   return reduced
     ? { initial: false as const, transition: { duration: 0 } }
-    : { initial: { opacity: 0.08, y: distance }, transition: { duration: 0.64, delay, ease } };
+    : { initial: { y: distance }, transition: { duration: 0.64, delay, ease } };
 }
 
 function useEntranceSequence(reduced: boolean) {
@@ -84,9 +84,8 @@ export function HeroContent({ sourceUrl }: { sourceUrl: string }) {
 }
 
 const previewVariants = {
-  hidden: { opacity: 0.06, y: 34, scale: 0.96 },
+  hidden: { y: 34, scale: 0.96 },
   visible: {
-    opacity: 1,
     y: 0,
     scale: 1,
     transition: { duration: 0.82, delay: 0.28, ease },
@@ -94,8 +93,8 @@ const previewVariants = {
 };
 
 const previewItemVariants = {
-  hidden: { opacity: 0.08, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.48, delay: 0.58, ease } },
+  hidden: { y: 12 },
+  visible: { y: 0, transition: { duration: 0.48, delay: 0.58, ease } },
 };
 
 export function AnimatedProductPreview({ preview }: { preview: DemoScreenModel }) {
@@ -186,8 +185,8 @@ export function RevealSection({ children, className, id }: { children: ReactNode
     initial={false}
     animate={controls}
     variants={{
-      hidden: { opacity: 0.12, y: 32 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.72, ease } },
+      hidden: { y: 32 },
+      visible: { y: 0, transition: { duration: 0.72, ease } },
     }}
   >{children}</m.section>;
 }
