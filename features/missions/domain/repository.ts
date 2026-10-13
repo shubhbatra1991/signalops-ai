@@ -6,11 +6,12 @@ const maxBytes = 262144;
 const envelopeSchema = z.strictObject({ version: z.literal(1), missions: z.array(missionSchema).max(200) })
   .refine((value) => new Set(value.missions.map((mission) => mission.id)).size === value.missions.length);
 export interface MissionSnapshot { missions: Mission[]; writable: boolean; message: string }
-export interface MissionRepository { load(): MissionSnapshot; save(missions: Mission[]): MissionSnapshot; reset(): MissionSnapshot }
+/** Guest-only browser persistence. Future authenticated missions require a server-authorized repository. */
+export interface GuestMissionRepository { load(): MissionSnapshot; save(missions: Mission[]): MissionSnapshot; reset(): MissionSnapshot }
 type StoragePort = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 const blocked = (message: string): MissionSnapshot => ({ missions: [], writable: false, message });
 /** No automatic writes/migration. Unknown or malformed storage stays intact until confirmed reset. */
-export function browserMissionRepository(storage: () => StoragePort): MissionRepository {
+export function browserMissionRepository(storage: () => StoragePort): GuestMissionRepository {
   let original: string | null | undefined;
   let writable = false;
   return {

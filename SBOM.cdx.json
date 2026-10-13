@@ -5,7 +5,7 @@
   "serialNumber": "urn:uuid:***",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-13T07:45:01.014Z",
+    "timestamp": "2026-10-13T16:14:37.118Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -114,12 +114,12 @@
       ]
     },
     {
-      "bom-ref": "@asamuzakjp/css-color@7.1.4",
+      "bom-ref": "@asamuzakjp/css-color@7.1.5",
       "type": "library",
       "name": "@asamuzakjp/css-color",
-      "version": "7.1.4",
+      "version": "7.1.5",
       "scope": "optional",
-      "purl": "pkg:npm/%40asamuzakjp/css-color@7.1.4",
+      "purl": "pkg:npm/%40asamuzakjp/css-color@7.1.5",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -129,13 +129,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@asamuzakjp/css-color/-/css-color-7.1.4.tgz"
+          "url": "https://registry.npmjs.org/@asamuzakjp/css-color/-/css-color-7.1.5.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "29d3615a5021dac6d807c39fd18c3ce3f6be2cefefb0138725c220f01a725e8d911ab156549bc4311be230e37ecac42ed0aa55ef0c6b5ababd8da5f43f6d46cc"
+          "content": "8c2a40be3f1aa5aed2287658a20934adb5c1dca6f484b16ba64585f80a7ebc1039ae2ac8b67a6ff4d2b203212e0ee162cef974ab09e3e89591ef4446274ace97"
         }
       ],
       "licenses": [
@@ -235,39 +235,6 @@
         {
           "alg": "SHA-512",
           "content": "e982f1fa4c57bb918971e1b8a33160fb7ddad84313763630586968277b1bf4ab5ae69a7e64d4b9deec4656883925eb4863cb3ef8fe54aed5fe72b8bebb454056"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MPL-2.0"
-          }
-        }
-      ]
-    },
-    {
-      "bom-ref": "axe-core@4.13.0",
-      "type": "library",
-      "name": "axe-core",
-      "version": "4.13.0",
-      "scope": "optional",
-      "purl": "pkg:npm/axe-core@4.13.0",
-      "properties": [
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ],
-      "externalReferences": [
-        {
-          "type": "distribution",
-          "url": "https://registry.npmjs.org/axe-core/-/axe-core-4.13.0.tgz"
-        }
-      ],
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "5331adf3383b372f1d8db60c871976cee11ebd56bbaf68098d86392f0af5c4cefe5d4da777a0a421615355c0886c03fadef4b3ef535a572cae4a4f651ca732d0"
         }
       ],
       "licenses": [
@@ -2277,39 +2244,6 @@
       ]
     },
     {
-      "bom-ref": "aria-query@5.3.0",
-      "type": "library",
-      "name": "aria-query",
-      "version": "5.3.0",
-      "scope": "optional",
-      "purl": "pkg:npm/aria-query@5.3.0",
-      "properties": [
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ],
-      "externalReferences": [
-        {
-          "type": "distribution",
-          "url": "https://registry.npmjs.org/aria-query/-/aria-query-5.3.0.tgz"
-        }
-      ],
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "6f43f4b193cab72bbc1e479101f0aad087d44592be4aec0c8d8d545c6054dbbc290224f0400225ab9e886c83becad93f2634b57cc475e1e7b958105f2a2e49e8"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ]
-    },
-    {
       "bom-ref": "@testing-library/jest-dom@7.0.1",
       "type": "library",
       "name": "@testing-library/jest-dom",
@@ -2646,12 +2580,7 @@
       "version": "19.3.0",
       "scope": "optional",
       "purl": "pkg:npm/%40types/react@19.3.0",
-      "properties": [
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ],
+      "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
@@ -2706,12 +2635,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/eslint-plugin@8.71.1",
+      "bom-ref": "@typescript-eslint/eslint-plugin@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/eslint-plugin",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/eslint-plugin@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/eslint-plugin@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2721,13 +2650,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "9cd9417fa1eea2da8c819bd29160f984d75e9a2048c50d8d9ab9607dc50879946cf816da923b1c09046afc76fbe041559c589259674bd7626bbaac01cb71110f"
+          "content": "2bbdbfa6f4fbaa99bcab793c1b9bbddcd09237545c2f15f987b1b0d1b4296cc5ef8811de63a371d561309a4f703fe78a4d243c79cc6f720b7f657feb07ddfcc5"
         }
       ],
       "licenses": [
@@ -2772,12 +2701,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/parser@8.71.1",
+      "bom-ref": "@typescript-eslint/parser@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/parser",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/parser@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/parser@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2787,13 +2716,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a0cff9b00ab3fe5d6fff360ad6a4ce3eb9f6f8922b0460b557ab8d62e7113b9821e9e4fdbd627f4613db184e7d6f2bd911443854fe9790b05a4b926d8b98e9bf"
+          "content": "693b66663a7fc7782c187903b34e3fd48f24368801264a5069e19a3743df886e373730c4996da7f8e3f98a6f707ecbf25f4c8fd5465606b006b4305f1fd8c457"
         }
       ],
       "licenses": [
@@ -2805,12 +2734,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/project-service@8.71.1",
+      "bom-ref": "@typescript-eslint/project-service@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/project-service",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/project-service@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/project-service@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2820,13 +2749,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "3a28dcf5152ca211e39dc83a8868bb802b639c48d8b7d156bfdbbaca02bcb8a7072b978b8cb024a84450f416b2b5ba5c78e15d93a9227cf092ff301913e03df6"
+          "content": "3ddebc1ac2d587965795c11c7053dd8523afb4767fd965345ec03cce65ce4b7175e7c95595c4cb85f43aaafb4bd51cdb3227b42a9f31b5b570020e277a328f1f"
         }
       ],
       "licenses": [
@@ -2838,12 +2767,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/scope-manager@8.71.1",
+      "bom-ref": "@typescript-eslint/scope-manager@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/scope-manager",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/scope-manager@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/scope-manager@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2853,13 +2782,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "d585036577539d72e5a1bd374851c18a9772301b03566ef3a12cf4cad4c9dfd764e49d5382c4cad3756547f74b5c6fd12cb52b3dc61b0f8ae9db70661f11cfd3"
+          "content": "605e30820e62517e4e6f2c2869cdbb079e85868ccc34585d2526e1d751f9181030981b5fc9186681342a5bdb5134d9870efb19d825fa506ce8cfe61f627d8b7a"
         }
       ],
       "licenses": [
@@ -2871,12 +2800,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/tsconfig-utils@8.71.1",
+      "bom-ref": "@typescript-eslint/tsconfig-utils@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/tsconfig-utils",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/tsconfig-utils@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/tsconfig-utils@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2886,13 +2815,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a13be49a5e52c5786083e5962a1a1de6a5902020d7b4e07efc78bd55d3ca14000d2766fb60e80c7df82fcd7baaa20ed1e80fc9b6bcd17f5dbc76cc6e9a6c9686"
+          "content": "8f3e3d4c05a8926ffbc960fdfe8f37ee761ac7d0f200bc483ce2267489af573a3a71a9c10996338a7f33272a8d4799358fd2b50c4d1b56faf45d807ef7db8076"
         }
       ],
       "licenses": [
@@ -2904,12 +2833,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/type-utils@8.71.1",
+      "bom-ref": "@typescript-eslint/type-utils@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/type-utils",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/type-utils@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/type-utils@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2919,13 +2848,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "907dedde364262fd8f65204458f2936ab88bac26a817508ba0f8ad6050493a10061305a749102d18489fadfae905ae0af4997058d668b60039c37ff02d293f15"
+          "content": "702f1469a9425622646f7ac7ff12c8be2744c28151b4c64c52a0e38c930610a6931706111d805ca1cce51061eebe41c43bcb2f443ae0674c9080e02b166c1a9e"
         }
       ],
       "licenses": [
@@ -2937,12 +2866,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/types@8.71.1",
+      "bom-ref": "@typescript-eslint/types@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/types",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/types@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/types@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2952,13 +2881,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "c9b6273d353083755040e1448813cbb3c271975af2daf5dd9f59152a0ba89816efc697ad76edcc293343a85354ae51bcca53fd329668b265cc158946407935a1"
+          "content": "cb9524977a15a7b7bf546c6a228117a1e6ff4688fbd4f009e161bf37f4468fe79e0ef2912ccd79906afd3228cb6cdd22d374b9db3c6edf567df04e605828492b"
         }
       ],
       "licenses": [
@@ -2970,12 +2899,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/typescript-estree@8.71.1",
+      "bom-ref": "@typescript-eslint/typescript-estree@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/typescript-estree",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/typescript-estree@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/typescript-estree@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -2985,13 +2914,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a5229210ad492691ece8a88a56d001084e2224ae5dec52c5cc35d0341436a1163b2c47775303addd365e99382ef6cc9321fe7a7495a54e7fe9766acef682945d"
+          "content": "0e034e12c978a5d633c122fe37f0a5df7b57d47970dc5bc877bdcb9ca5dfabb8e7ac5daf88e127ed7f8fed1064912582566f7682759ddbc1880b9bc9b8b44478"
         }
       ],
       "licenses": [
@@ -3135,12 +3064,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/utils@8.71.1",
+      "bom-ref": "@typescript-eslint/utils@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/utils",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/utils@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/utils@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -3150,13 +3079,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0818d3ea07c0cf70d6da3f50e26a059eab76d3c02afb9d3ab151977e945cc807aa9f41296b22f49a3756a023b6b77442ec67b036b17175e7a1b8468f83a0cccd"
+          "content": "47229ad46d4cf6b2870e1ae4f8726d885d4cbcb0f9531d895b74d2933c3ed36a5100b76925bf90cc6d58e5e9be2ef0a0cc6c2083c1fb9814452a58cdcfb2263f"
         }
       ],
       "licenses": [
@@ -3168,12 +3097,12 @@
       ]
     },
     {
-      "bom-ref": "@typescript-eslint/visitor-keys@8.71.1",
+      "bom-ref": "@typescript-eslint/visitor-keys@8.71.2",
       "type": "library",
       "name": "@typescript-eslint/visitor-keys",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/%40typescript-eslint/visitor-keys@8.71.1",
+      "purl": "pkg:npm/%40typescript-eslint/visitor-keys@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -3183,13 +3112,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "d06c62506a8c534a9726de7c701b221b70cff2552605a168daf0a1b545fe093ecf9d1deffd518b2ebcd53f82bdaf594d8995e31d879f3016cfba7a65af4f6feb"
+          "content": "ce8ce5374500df66d21b6ce4280810c916126c4212568c94eafbe4298a366929f2ef80fc261e1ef8f3a427a2e4d1d95ecd98b9c7b4ed0fef3c5dbd3a201f2786"
         }
       ],
       "licenses": [
@@ -3564,12 +3493,12 @@
       ]
     },
     {
-      "bom-ref": "aria-query@5.3.2",
+      "bom-ref": "aria-query@5.3.0",
       "type": "library",
       "name": "aria-query",
-      "version": "5.3.2",
+      "version": "5.3.0",
       "scope": "optional",
-      "purl": "pkg:npm/aria-query@5.3.2",
+      "purl": "pkg:npm/aria-query@5.3.0",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -3579,13 +3508,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/aria-query/-/aria-query-5.3.2.tgz"
+          "url": "https://registry.npmjs.org/aria-query/-/aria-query-5.3.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "08e44ea676a86a9d44d85d34d12eb6afa03ad2e1d99e696fa2685fc93d8395372b6353ab04a9f65211fbaa7e704c2f7332f0f4018edcb1d3d237028ffbb5a243"
+          "content": "6f43f4b193cab72bbc1e479101f0aad087d44592be4aec0c8d8d545c6054dbbc290224f0400225ab9e886c83becad93f2634b57cc475e1e7b958105f2a2e49e8"
         }
       ],
       "licenses": [
@@ -3993,12 +3922,12 @@
       ]
     },
     {
-      "bom-ref": "axe-core@4.14.0",
+      "bom-ref": "axe-core@4.13.0",
       "type": "library",
       "name": "axe-core",
-      "version": "4.14.0",
+      "version": "4.13.0",
       "scope": "optional",
-      "purl": "pkg:npm/axe-core@4.14.0",
+      "purl": "pkg:npm/axe-core@4.13.0",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -4008,13 +3937,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/axe-core/-/axe-core-4.14.0.tgz"
+          "url": "https://registry.npmjs.org/axe-core/-/axe-core-4.13.0.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "f564d9c448ec67b6f5dd31fc24f99b576cfc0876e5f34ff6866dd73c41b826035d40b2bcd480515e64b11df3003a44aa41e4714ffd1dc0d0f3d863a6df3ce971"
+          "content": "5331adf3383b372f1d8db60c871976cee11ebd56bbaf68098d86392f0af5c4cefe5d4da777a0a421615355c0886c03fadef4b3ef535a572cae4a4f651ca732d0"
         }
       ],
       "licenses": [
@@ -4384,23 +4313,23 @@
       ]
     },
     {
-      "bom-ref": "caniuse-lite@1.0.30001815",
+      "bom-ref": "caniuse-lite@1.0.30001816",
       "type": "library",
       "name": "caniuse-lite",
-      "version": "1.0.30001815",
+      "version": "1.0.30001816",
       "scope": "required",
-      "purl": "pkg:npm/caniuse-lite@1.0.30001815",
+      "purl": "pkg:npm/caniuse-lite@1.0.30001816",
       "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001815.tgz"
+          "url": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001816.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "b83c9b504c9f81bc8927ddc9d6f8a44f29415f7d4091d5587953de7df310a5ff1737b8527ebd2864e9f854538830dbed539fab1ef0b951d8364e0b492879b6dd"
+          "content": "fbc631ec15c2a2a93a205f324e27237d447a0ff95d273765b2876510e88e48f9a12bce38588824ebbff321068600ec4d919cb2bc196b4459cbbea288a2a6c017"
         }
       ],
       "licenses": [
@@ -4743,12 +4672,7 @@
       "version": "3.2.3",
       "scope": "optional",
       "purl": "pkg:npm/csstype@3.2.3",
-      "properties": [
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ],
+      "properties": [],
       "externalReferences": [
         {
           "type": "distribution",
@@ -5232,12 +5156,12 @@
       ]
     },
     {
-      "bom-ref": "electron-to-chromium@1.5.452",
+      "bom-ref": "electron-to-chromium@1.5.453",
       "type": "library",
       "name": "electron-to-chromium",
-      "version": "1.5.452",
+      "version": "1.5.453",
       "scope": "optional",
-      "purl": "pkg:npm/electron-to-chromium@1.5.452",
+      "purl": "pkg:npm/electron-to-chromium@1.5.453",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -5247,13 +5171,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.452.tgz"
+          "url": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.453.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "715be4d580528fae7bd55995ea17494ea8fde18efdc52bbc723e98f6de9a7b8638e37d73f3fec4245beedeb569f74c617eebfd0693ca52668b7d3a38f8538606"
+          "content": "f6bfe7cfd6a4965af7499b075217cad7492d507ea3d036e8ddc29d87dd64870d05bd1e878571a701398eab95fc7a76b66aae065cb4359288779ef29a40968d99"
         }
       ],
       "licenses": [
@@ -6057,6 +5981,39 @@
       ]
     },
     {
+      "bom-ref": "aria-query@5.3.2",
+      "type": "library",
+      "name": "aria-query",
+      "version": "5.3.2",
+      "scope": "optional",
+      "purl": "pkg:npm/aria-query@5.3.2",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/aria-query/-/aria-query-5.3.2.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "08e44ea676a86a9d44d85d34d12eb6afa03ad2e1d99e696fa2685fc93d8395372b6353ab04a9f65211fbaa7e704c2f7332f0f4018edcb1d3d237028ffbb5a243"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "eslint-plugin-react@7.37.5",
       "type": "library",
       "name": "eslint-plugin-react",
@@ -6805,6 +6762,34 @@
         {
           "alg": "SHA-512",
           "content": "74ac75d9e442548cea0b1146a65c8528930fbcb11682636d52ba53889211e6ef7bcc48511bcc92aed6e83c7657c7b75a2f1415ae5eb8ddc4f36da6f6b64423c6"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "framer-motion@14.2.0",
+      "type": "library",
+      "name": "framer-motion",
+      "version": "14.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/framer-motion@14.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/framer-motion/-/framer-motion-14.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "703da07c5ba31ede2bffe759a5c9f9cb38aeed54704004036a4c089bf6c80985db69f9e91c2628915f8f9c45ea12b9d276fe84876f1af92445f9fde774670cb1"
         }
       ],
       "licenses": [
@@ -9423,6 +9408,34 @@
       ]
     },
     {
+      "bom-ref": "lucide-react@1.56.0",
+      "type": "library",
+      "name": "lucide-react",
+      "version": "1.56.0",
+      "scope": "required",
+      "purl": "pkg:npm/lucide-react@1.56.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/lucide-react/-/lucide-react-1.56.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6fe86a8f7d3fb6b1c199ae6bd7394a6fac8b7b0429ead52d9f3f65a1cdf176b61eacf9af2d886511bc8f54227c0ce836fdb9417fa9703cbce77ed15500291ae8"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "lz-string@1.5.0",
       "type": "library",
       "name": "lz-string",
@@ -9709,6 +9722,90 @@
         {
           "alg": "SHA-512",
           "content": "db2c8047ca8190ddd8ba17896a7529582e54ddb6f9a2c0f2c0d07c4730d5943c031dba1c009bdeaaa8f5bbcf92543ee39164f8cafb070a95aaa96a80c5bd3308"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "motion@14.2.0",
+      "type": "library",
+      "name": "motion",
+      "version": "14.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/motion@14.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/motion/-/motion-14.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e39703c23661d3238c66d9d7de12053c83e6cc25b3fd10b66c3fe7896548b2c1818c994c9a8b1b0c82c6f5af99ca83fadf9679c6b6cabeea35d2ca6ff5d05d9f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "motion-dom@14.2.0",
+      "type": "library",
+      "name": "motion-dom",
+      "version": "14.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/motion-dom@14.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/motion-dom/-/motion-dom-14.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4c37719e301abe1d909b8950090237ba84f1f4847f21dd8f23c24d1175b701cc30576caf8688a6017dff4e713ec7cda00c77cfab6cb1fdc279f134f0e6632bd0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "motion-utils@14.1.1",
+      "type": "library",
+      "name": "motion-utils",
+      "version": "14.1.1",
+      "scope": "required",
+      "purl": "pkg:npm/motion-utils@14.1.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/motion-utils/-/motion-utils-14.1.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dd5bcde54bdff01eaa1be39f3ae8ba361b79116a7ebcbb94dc8a9c023ec8b5918aaad9938c279b979b06645effd3c8041d19c497500ffdf2306dc13256b71019"
         }
       ],
       "licenses": [
@@ -10812,39 +10909,6 @@
       ]
     },
     {
-      "bom-ref": "react-is@17.0.2",
-      "type": "library",
-      "name": "react-is",
-      "version": "17.0.2",
-      "scope": "optional",
-      "purl": "pkg:npm/react-is@17.0.2",
-      "properties": [
-        {
-          "name": "cdx:npm:package:development",
-          "value": "true"
-        }
-      ],
-      "externalReferences": [
-        {
-          "type": "distribution",
-          "url": "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
-        }
-      ],
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "c361accae90beb62099e569f7ff9d17a03d047de02fd75da9af3169921d1278cbb4ecff8a1c1919931ef3acf0f484ea90777563ab0ff9ee7ae539b1db81b10e3"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ]
-    },
-    {
       "bom-ref": "prop-types@15.8.1",
       "type": "library",
       "name": "prop-types",
@@ -10867,6 +10931,39 @@
         {
           "alg": "SHA-512",
           "content": "a23f3b0a064809dba5528868815011ec08e50b4df6ed4e1e9782fa780bcea827ae74c0d553435384d695f9bf437f87578123f58173139cf7617deff6a831f972"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "react-is@16.13.1",
+      "type": "library",
+      "name": "react-is",
+      "version": "16.13.1",
+      "scope": "optional",
+      "purl": "pkg:npm/react-is@16.13.1",
+      "properties": [
+        {
+          "name": "cdx:npm:package:development",
+          "value": "true"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "db87baca71361fe38ab7892ab0ebcd77c901a55eb9ce8c5b038055b04381dc0455590922fc31f3694a02e4ab8e37f06271c0da0824d906e39c7d9b3bd2447c6d"
         }
       ],
       "licenses": [
@@ -11000,12 +11097,12 @@
       ]
     },
     {
-      "bom-ref": "react-is@16.13.1",
+      "bom-ref": "react-is@17.0.2",
       "type": "library",
       "name": "react-is",
-      "version": "16.13.1",
+      "version": "17.0.2",
       "scope": "optional",
-      "purl": "pkg:npm/react-is@16.13.1",
+      "purl": "pkg:npm/react-is@17.0.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -11015,13 +11112,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
+          "url": "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "db87baca71361fe38ab7892ab0ebcd77c901a55eb9ce8c5b038055b04381dc0455590922fc31f3694a02e4ab8e37f06271c0da0824d906e39c7d9b3bd2447c6d"
+          "content": "c361accae90beb62099e569f7ff9d17a03d047de02fd75da9af3169921d1278cbb4ecff8a1c1919931ef3acf0f484ea90777563ab0ff9ee7ae539b1db81b10e3"
         }
       ],
       "licenses": [
@@ -13092,12 +13189,12 @@
       ]
     },
     {
-      "bom-ref": "typescript-eslint@8.71.1",
+      "bom-ref": "typescript-eslint@8.71.2",
       "type": "library",
       "name": "typescript-eslint",
-      "version": "8.71.1",
+      "version": "8.71.2",
       "scope": "optional",
-      "purl": "pkg:npm/typescript-eslint@8.71.1",
+      "purl": "pkg:npm/typescript-eslint@8.71.2",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -13107,13 +13204,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.71.1.tgz"
+          "url": "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.71.2.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "a223553c2dff35b575169687534ee5f0eeb29ea1bdbf83c0896d96bd3ac0999751d1fd8723f804ebaf0494c2c22bb5dbb2ee64d9f2b90b87d7362ab4e63eff9d"
+          "content": "473e1e7df6cccb683dc27bce2591ba49b55abd7df5dcb6a9d6f3446e4d51528721ce2724bf33fc3f81c1f9b90d8397b9d1e573d614068e1f4ad68988d7107807"
         }
       ],
       "licenses": [
@@ -13389,12 +13486,12 @@
       ]
     },
     {
-      "bom-ref": "postcss@8.5.29",
+      "bom-ref": "postcss@8.5.30",
       "type": "library",
       "name": "postcss",
-      "version": "8.5.29",
+      "version": "8.5.30",
       "scope": "optional",
-      "purl": "pkg:npm/postcss@8.5.29",
+      "purl": "pkg:npm/postcss@8.5.30",
       "properties": [
         {
           "name": "cdx:npm:package:development",
@@ -13404,13 +13501,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/postcss/-/postcss-8.5.29.tgz"
+          "url": "https://registry.npmjs.org/postcss/-/postcss-8.5.30.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "e3d7068546d78fc41e9efd224ccc40d5c141cf15e872da42f548ddefbb7559c6c922bea717f788ee0ffc320c6b62574546e017be36bbc504706afa16ee482bc5"
+          "content": "ce477e7bd4b50101e199a04ac9ef739451d68cec1582a5e5d6adc4098cbce7ad4aeeac51d9c4447ff4932ec92e94115defc93a00e15e03e7dfd53b44ce4f5b00"
         }
       ],
       "licenses": [
@@ -14015,6 +14112,8 @@
     {
       "ref": "signalops-ai@0.1.0",
       "dependsOn": [
+        "lucide-react@1.56.0",
+        "motion@14.2.0",
         "next@16.4.0",
         "react@19.3.0",
         "react-dom@19.3.0",
@@ -14048,7 +14147,7 @@
       "dependsOn": []
     },
     {
-      "ref": "@asamuzakjp/css-color@7.1.4",
+      "ref": "@asamuzakjp/css-color@7.1.5",
       "dependsOn": [
         "@csstools/css-calc@3.4.3",
         "@csstools/css-color-parser@4.2.6",
@@ -14076,10 +14175,6 @@
         "playwright-core@1.64.0",
         "axe-core@4.13.0"
       ]
-    },
-    {
-      "ref": "axe-core@4.13.0",
-      "dependsOn": []
     },
     {
       "ref": "@babel/code-frame@7.29.7",
@@ -14475,18 +14570,12 @@
       ]
     },
     {
-      "ref": "aria-query@5.3.0",
-      "dependsOn": [
-        "dequal@2.0.3"
-      ]
-    },
-    {
       "ref": "@testing-library/jest-dom@7.0.1",
       "dependsOn": [
         "@testing-library/dom@10.4.2",
         "vitest@5.0.3",
         "@adobe/css-tools@4.5.0",
-        "aria-query@5.3.2",
+        "aria-query@5.3.0",
         "css.escape@1.5.1",
         "dom-accessibility-api@0.6.3",
         "picocolors@1.1.1",
@@ -14554,16 +14643,16 @@
       ]
     },
     {
-      "ref": "@typescript-eslint/eslint-plugin@8.71.1",
+      "ref": "@typescript-eslint/eslint-plugin@8.71.2",
       "dependsOn": [
-        "@typescript-eslint/parser@8.71.1",
+        "@typescript-eslint/parser@8.71.2",
         "eslint@9.39.5",
         "typescript@5.9.3",
         "@eslint-community/regexpp@4.12.2",
-        "@typescript-eslint/scope-manager@8.71.1",
-        "@typescript-eslint/type-utils@8.71.1",
-        "@typescript-eslint/utils@8.71.1",
-        "@typescript-eslint/visitor-keys@8.71.1",
+        "@typescript-eslint/scope-manager@8.71.2",
+        "@typescript-eslint/type-utils@8.71.2",
+        "@typescript-eslint/utils@8.71.2",
+        "@typescript-eslint/visitor-keys@8.71.2",
         "ignore@7.0.12",
         "natural-compare@1.4.0",
         "ts-api-utils@2.5.0"
@@ -14574,63 +14663,63 @@
       "dependsOn": []
     },
     {
-      "ref": "@typescript-eslint/parser@8.71.1",
+      "ref": "@typescript-eslint/parser@8.71.2",
       "dependsOn": [
         "eslint@9.39.5",
         "typescript@5.9.3",
-        "@typescript-eslint/scope-manager@8.71.1",
-        "@typescript-eslint/types@8.71.1",
-        "@typescript-eslint/typescript-estree@8.71.1",
-        "@typescript-eslint/visitor-keys@8.71.1",
+        "@typescript-eslint/scope-manager@8.71.2",
+        "@typescript-eslint/types@8.71.2",
+        "@typescript-eslint/typescript-estree@8.71.2",
+        "@typescript-eslint/visitor-keys@8.71.2",
         "debug@4.4.3"
       ]
     },
     {
-      "ref": "@typescript-eslint/project-service@8.71.1",
+      "ref": "@typescript-eslint/project-service@8.71.2",
       "dependsOn": [
         "typescript@5.9.3",
-        "@typescript-eslint/tsconfig-utils@8.71.1",
-        "@typescript-eslint/types@8.71.1",
+        "@typescript-eslint/tsconfig-utils@8.71.2",
+        "@typescript-eslint/types@8.71.2",
         "debug@4.4.3"
       ]
     },
     {
-      "ref": "@typescript-eslint/scope-manager@8.71.1",
+      "ref": "@typescript-eslint/scope-manager@8.71.2",
       "dependsOn": [
-        "@typescript-eslint/types@8.71.1",
-        "@typescript-eslint/visitor-keys@8.71.1"
+        "@typescript-eslint/types@8.71.2",
+        "@typescript-eslint/visitor-keys@8.71.2"
       ]
     },
     {
-      "ref": "@typescript-eslint/tsconfig-utils@8.71.1",
+      "ref": "@typescript-eslint/tsconfig-utils@8.71.2",
       "dependsOn": [
         "typescript@5.9.3"
       ]
     },
     {
-      "ref": "@typescript-eslint/type-utils@8.71.1",
+      "ref": "@typescript-eslint/type-utils@8.71.2",
       "dependsOn": [
         "eslint@9.39.5",
         "typescript@5.9.3",
-        "@typescript-eslint/types@8.71.1",
-        "@typescript-eslint/typescript-estree@8.71.1",
-        "@typescript-eslint/utils@8.71.1",
+        "@typescript-eslint/types@8.71.2",
+        "@typescript-eslint/typescript-estree@8.71.2",
+        "@typescript-eslint/utils@8.71.2",
         "debug@4.4.3",
         "ts-api-utils@2.5.0"
       ]
     },
     {
-      "ref": "@typescript-eslint/types@8.71.1",
+      "ref": "@typescript-eslint/types@8.71.2",
       "dependsOn": []
     },
     {
-      "ref": "@typescript-eslint/typescript-estree@8.71.1",
+      "ref": "@typescript-eslint/typescript-estree@8.71.2",
       "dependsOn": [
         "typescript@5.9.3",
-        "@typescript-eslint/project-service@8.71.1",
-        "@typescript-eslint/tsconfig-utils@8.71.1",
-        "@typescript-eslint/types@8.71.1",
-        "@typescript-eslint/visitor-keys@8.71.1",
+        "@typescript-eslint/project-service@8.71.2",
+        "@typescript-eslint/tsconfig-utils@8.71.2",
+        "@typescript-eslint/types@8.71.2",
+        "@typescript-eslint/visitor-keys@8.71.2",
         "debug@4.4.3",
         "minimatch@10.2.6",
         "semver@7.8.5",
@@ -14659,20 +14748,20 @@
       "dependsOn": []
     },
     {
-      "ref": "@typescript-eslint/utils@8.71.1",
+      "ref": "@typescript-eslint/utils@8.71.2",
       "dependsOn": [
         "eslint@9.39.5",
         "typescript@5.9.3",
         "@eslint-community/eslint-utils@4.10.1",
-        "@typescript-eslint/scope-manager@8.71.1",
-        "@typescript-eslint/types@8.71.1",
-        "@typescript-eslint/typescript-estree@8.71.1"
+        "@typescript-eslint/scope-manager@8.71.2",
+        "@typescript-eslint/types@8.71.2",
+        "@typescript-eslint/typescript-estree@8.71.2"
       ]
     },
     {
-      "ref": "@typescript-eslint/visitor-keys@8.71.1",
+      "ref": "@typescript-eslint/visitor-keys@8.71.2",
       "dependsOn": [
-        "@typescript-eslint/types@8.71.1",
+        "@typescript-eslint/types@8.71.2",
         "eslint-visitor-keys@5.0.1"
       ]
     },
@@ -14741,8 +14830,10 @@
       "dependsOn": []
     },
     {
-      "ref": "aria-query@5.3.2",
-      "dependsOn": []
+      "ref": "aria-query@5.3.0",
+      "dependsOn": [
+        "dequal@2.0.3"
+      ]
     },
     {
       "ref": "array-buffer-byte-length@1.0.2",
@@ -14846,7 +14937,7 @@
       ]
     },
     {
-      "ref": "axe-core@4.14.0",
+      "ref": "axe-core@4.13.0",
       "dependsOn": []
     },
     {
@@ -14884,8 +14975,8 @@
       "ref": "browserslist@4.29.3",
       "dependsOn": [
         "baseline-browser-mapping@2.11.28",
-        "caniuse-lite@1.0.30001815",
-        "electron-to-chromium@1.5.452",
+        "caniuse-lite@1.0.30001816",
+        "electron-to-chromium@1.5.453",
         "node-releases@2.0.58",
         "update-browserslist-db@1.3.4"
       ]
@@ -14918,7 +15009,7 @@
       "dependsOn": []
     },
     {
-      "ref": "caniuse-lite@1.0.30001815",
+      "ref": "caniuse-lite@1.0.30001816",
       "dependsOn": []
     },
     {
@@ -15065,7 +15156,7 @@
       ]
     },
     {
-      "ref": "electron-to-chromium@1.5.452",
+      "ref": "electron-to-chromium@1.5.453",
       "dependsOn": []
     },
     {
@@ -15277,7 +15368,7 @@
         "eslint-plugin-react@7.37.5",
         "eslint-plugin-react-hooks@7.1.1",
         "globals@16.4.0",
-        "typescript-eslint@8.71.1"
+        "typescript-eslint@8.71.2"
       ]
     },
     {
@@ -15351,7 +15442,7 @@
         "array-includes@3.2.0",
         "array.prototype.flatmap@1.3.3",
         "ast-types-flow@0.0.8",
-        "axe-core@4.14.0",
+        "axe-core@4.13.0",
         "axobject-query@4.1.0",
         "damerau-levenshtein@1.0.8",
         "emoji-regex@9.2.2",
@@ -15363,6 +15454,10 @@
         "safe-regex-test@1.1.0",
         "string.prototype.includes@2.0.1"
       ]
+    },
+    {
+      "ref": "aria-query@5.3.2",
+      "dependsOn": []
     },
     {
       "ref": "eslint-plugin-react@7.37.5",
@@ -15516,6 +15611,15 @@
       "ref": "for-each@0.3.5",
       "dependsOn": [
         "is-callable@1.2.7"
+      ]
+    },
+    {
+      "ref": "framer-motion@14.2.0",
+      "dependsOn": [
+        "react@19.3.0",
+        "react-dom@19.3.0",
+        "motion-dom@14.2.0",
+        "motion-utils@14.1.1"
       ]
     },
     {
@@ -15898,7 +16002,7 @@
     {
       "ref": "jsdom@30.1.2",
       "dependsOn": [
-        "@asamuzakjp/css-color@7.1.4",
+        "@asamuzakjp/css-color@7.1.5",
         "@asamuzakjp/dom-selector@9.2.4",
         "@bramus/specificity@2.4.3",
         "@csstools/css-syntax-patches-for-csstree@1.1.15",
@@ -15999,6 +16103,13 @@
       ]
     },
     {
+      "ref": "lucide-react@1.56.0",
+      "dependsOn": [
+        "react@19.3.0",
+        "@types/react@19.3.0"
+      ]
+    },
+    {
       "ref": "lz-string@1.5.0",
       "dependsOn": []
     },
@@ -16042,6 +16153,24 @@
       "dependsOn": []
     },
     {
+      "ref": "motion@14.2.0",
+      "dependsOn": [
+        "react@19.3.0",
+        "react-dom@19.3.0",
+        "framer-motion@14.2.0"
+      ]
+    },
+    {
+      "ref": "motion-dom@14.2.0",
+      "dependsOn": [
+        "motion-utils@14.1.1"
+      ]
+    },
+    {
+      "ref": "motion-utils@14.1.1",
+      "dependsOn": []
+    },
+    {
       "ref": "ms@2.1.3",
       "dependsOn": []
     },
@@ -16066,7 +16195,7 @@
         "@next/env@16.4.0",
         "@swc/helpers@0.5.23",
         "baseline-browser-mapping@2.11.28",
-        "caniuse-lite@1.0.30001815",
+        "caniuse-lite@1.0.30001816",
         "postcss@8.5.23",
         "styled-jsx@5.1.6"
       ]
@@ -16249,16 +16378,16 @@
       "dependsOn": []
     },
     {
-      "ref": "react-is@17.0.2",
-      "dependsOn": []
-    },
-    {
       "ref": "prop-types@15.8.1",
       "dependsOn": [
         "loose-envify@1.4.0",
         "object-assign@4.1.1",
         "react-is@16.13.1"
       ]
+    },
+    {
+      "ref": "react-is@16.13.1",
+      "dependsOn": []
     },
     {
       "ref": "punycode@2.3.1",
@@ -16280,7 +16409,7 @@
       ]
     },
     {
-      "ref": "react-is@16.13.1",
+      "ref": "react-is@17.0.2",
       "dependsOn": []
     },
     {
@@ -16717,14 +16846,14 @@
       "dependsOn": []
     },
     {
-      "ref": "typescript-eslint@8.71.1",
+      "ref": "typescript-eslint@8.71.2",
       "dependsOn": [
         "eslint@9.39.5",
         "typescript@5.9.3",
-        "@typescript-eslint/eslint-plugin@8.71.1",
-        "@typescript-eslint/parser@8.71.1",
-        "@typescript-eslint/typescript-estree@8.71.1",
-        "@typescript-eslint/utils@8.71.1"
+        "@typescript-eslint/eslint-plugin@8.71.2",
+        "@typescript-eslint/parser@8.71.2",
+        "@typescript-eslint/typescript-estree@8.71.2",
+        "@typescript-eslint/utils@8.71.2"
       ]
     },
     {
@@ -16771,7 +16900,7 @@
         "jiti@2.7.0",
         "lightningcss@1.33.0",
         "picomatch@4.0.7",
-        "postcss@8.5.29",
+        "postcss@8.5.30",
         "rolldown@1.2.13",
         "tinyglobby@0.2.17"
       ]
@@ -16781,7 +16910,7 @@
       "dependsOn": []
     },
     {
-      "ref": "postcss@8.5.29",
+      "ref": "postcss@8.5.30",
       "dependsOn": [
         "nanoid@3.3.20",
         "picocolors@1.1.1",

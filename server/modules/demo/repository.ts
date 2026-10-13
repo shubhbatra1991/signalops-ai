@@ -1,6 +1,7 @@
 import "server-only";
-import type { CustomerIntelligenceRepository } from "@/features/customer-intelligence/domain/repository";
 import type { ProjectScope } from "@/features/customer-intelligence/domain/types";
+import type { DemoDataRepository } from "@/features/workspaces/domain/repository";
+import { demoDataContext } from "@/features/workspaces/domain/context";
 import { filterEvents } from "@/domain/analytics/events";
 import { createDemoDataset } from "./dataset";
 import { filterFeedback } from "@/features/feedback/domain/feedback";
@@ -12,7 +13,8 @@ function inScope(record: ProjectScope, scope: ProjectScope): boolean {
 }
 
 /** Fresh copies prevent callers from mutating the shared fixture between reads. */
-export const demoRepository: CustomerIntelligenceRepository = {
+export const demoRepository: DemoDataRepository = {
+  context: demoDataContext,
   async listProjects(workspaceId) {
     return structuredClone(dataset.projects.filter((project) => project.workspaceId === workspaceId));
   },

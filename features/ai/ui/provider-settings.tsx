@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { connectionResultSchema, errorMessages } from "../domain/contracts";
 import { connectionPrompt, isProvider, providers } from "../domain/providers";
 import { useAiSession } from "./ai-session";
+import { AppIcon } from "@/features/icons/app-icon";
 
 export function ProviderSettings() {
   const { session, configure, disconnect, configuration, configurationFailed, credentials } = useAiSession();
@@ -50,10 +51,10 @@ export function ProviderSettings() {
   }
   const selected = provider ? providers[provider] : undefined;
   return <section className="analytics-card ai-settings" aria-labelledby="ai-provider-heading">
-    <h2 id="ai-provider-heading">AI Provider</h2>
+    <h2 id="ai-provider-heading" className="icon-heading"><AppIcon name="security" size={24} />AI Provider</h2>
     <p>Bring your own API key. Connection testing sends only the synthetic prompt below through this self-hosted server to your selected provider. Provider charges may apply.</p>
     <p className="data-notice">Connection tests send no feedback, events or customer evidence. AI Insights separately requires an evidence review and explicit approval for each generation.</p>
-    {configuration && !providerRequestsEnabled && <p className="warning-note" role="status">AI provider requests are disabled by this deployment. Deterministic analytics, feedback, missions and impact features remain available. A self-hosted operator must explicitly enable provider requests on the server.</p>}
+    {configuration && !providerRequestsEnabled && <p className="warning-note icon-message" role="status"><AppIcon name="warning" size={18} />AI provider requests are disabled by this deployment. Deterministic analytics, feedback, missions and impact features remain available. An authorized deployment must explicitly enable provider requests on the server.</p>}
     <p>Server configuration: {configurationFailed ? "unavailable — check application origin configuration" : !configuration ? "checking…" : configuration.status === "configured" ? `configured · ${configuration.serverTestsEnabled ? "connection tests enabled" : "browser-triggered tests disabled"}` : configuration.status}.</p>
     <form onSubmit={testConnection} aria-label="AI provider configuration" className="ai-provider-form">
       <label>Configuration mode<select value={mode} onChange={(event) => changeMode(event.target.value)} disabled={busy || !providerRequestsEnabled}>
@@ -70,10 +71,10 @@ export function ProviderSettings() {
       {mode === "environment" && <p>Operator-enabled insight generation: {configuration?.serverInsightsEnabled ? "enabled" : "disabled"}. Selecting this mode explicitly permits use of the operator’s credential; each insight still needs its own approval.</p>}
       <div className="filter-actions"><button type="submit" className="primary-button" disabled={!providerRequestsEnabled || busy || !selected || (mode === "browser" ? !hasKey : !configuration?.serverTestsEnabled)}>{busy ? "Testing…" : "Test connection"}</button><button type="button" className="secondary-button" onClick={clear}>Disconnect / Clear</button></div>
     </form>
-    <p role={error ? "alert" : "status"} aria-live="polite" className={`status-message${error ? " status-error" : ""}`}>{notice}</p>
+    <p role={error ? "alert" : "status"} aria-live="polite" className={`status-message icon-message${error ? " status-error" : ""}`}><AppIcon name={error ? "warning" : "information"} size={18} />{notice}</p>
     {selected && <p>Destination: <strong>{selected.destination}</strong> · <a className="text-link" href={selected.docs} target="_blank" rel="noreferrer">Official model documentation</a>. Curated text-only model; account availability and provider limits vary. No fallback.</p>}
     <h3>Connection-test payload</h3><blockquote>{connectionPrompt}</blockquote>
     <p>One request, maximum 32 output tokens, no tools, no automatic retries. Provider response text is discarded on the server.</p>
-    <p className="warning-note">This endpoint has no authentication. Instance limits are shared by all visitors and reset on restart. Keep environment-key tests disabled on public deployments; use trusted ingress restrictions and provider spend limits.</p>
+    <p className="warning-note icon-message"><AppIcon name="warning" size={18} />This endpoint has no authentication. Instance limits are shared by all visitors and reset on restart. Keep environment-key tests disabled on public deployments; use trusted ingress restrictions and provider spend limits.</p>
   </section>;
 }

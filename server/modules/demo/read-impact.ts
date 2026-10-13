@@ -2,10 +2,11 @@ import "server-only";
 import { compareMeasurements, measure, type ImpactContext, type MetricKind } from "@/features/impact/domain/impact";
 import { demoRepository, getDemoMetadata } from "./repository";
 import { readMissionContext } from "./read-mission-context";
+import { DEMO_WORKSPACE_ID } from "@/features/workspaces/domain/context";
 
 export async function readImpact(evaluatedAt: string): Promise<ImpactContext> {
   const metadata = getDemoMetadata();
-  const projects = await demoRepository.listProjects("demo-workspace");
+  const projects = await demoRepository.listProjects(DEMO_WORKSPACE_ID);
   const options: ImpactContext["options"] = [];
   for (const project of projects) {
     const scope = { workspaceId: project.workspaceId, projectId: project.id };

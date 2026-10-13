@@ -29,13 +29,25 @@ test("browser BYOK test uses mocked transport and never persists its key", async
     expect(route.request().postData()).toContain(secret);
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true, provider: "openai", model: "gpt-4.1-mini", requestId: "e2e-mocked" }) });
   });
-  await page.goto("/app/settings");
+  await page.goto("/demo/settings");
   await page.getByRole("combobox", { name: "Provider" }).selectOption("openai");
   await page.getByRole("textbox", { name: "API key" }).fill(secret);
+  await page.getByRole("link", { name: "AI Insights" }).click();
+  await page.getByRole("link", { name: "Settings" }).click();
+  await expect(page.getByRole("textbox", { name: "API key" })).toHaveValue(secret);
   await page.getByRole("button", { name: "Test connection" }).click();
   await expect(page.getByText(/Connection verified with a synthetic request/)).toBeVisible();
 
   const storage = await page.evaluate(() => ({ local: JSON.stringify(localStorage), session: JSON.stringify(sessionStorage), href: location.href }));
   expect(`${storage.local}${storage.session}${storage.href}`).not.toContain(secret);
   expect(JSON.stringify(await context.cookies())).not.toContain(secret);
+
+  await page.getByRole("link", { name: "Switch experience" }).first().click();
+  await expect(page).toHaveURL(/\/start$/);
+  await page.getByRole("link", { name: /Open guest demo/ }).click();
+  await expect(page).toHaveURL(/\/demo$/);
+  await expect(page.getByRole("heading", { name: "Overview", exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "Settings" }).click();
+  await expect(page).toHaveURL(/\/demo\/settings$/);
+  await expect(page.getByRole("textbox", { name: "API key" })).toHaveValue("");
 });

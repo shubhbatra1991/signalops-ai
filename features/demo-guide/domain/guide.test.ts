@@ -13,8 +13,8 @@ describe("demo guide route contract", () => {
 
   test("missing evidence is disclosed and never replaced with another identifier", () => {
     const guide = buildDemoGuide({});
-    expect(guide.steps.find((step) => step.id === "feedback")).toMatchObject({ href: "/app/feedback", available: false });
-    expect(guide.steps.find((step) => step.id === "mission")).toMatchObject({ href: "/app/missions", available: false });
+    expect(guide.steps.find((step) => step.id === "feedback")).toMatchObject({ href: "/demo/feedback", available: false });
+    expect(guide.steps.find((step) => step.id === "mission")).toMatchObject({ href: "/demo/missions", available: false });
     expect(guide.steps.filter((step) => !step.available).every((step) => step.unavailableMessage)).toBe(true);
     expect(guide.steps.map((step) => step.href).join(" ")).not.toContain(GUIDE_FEEDBACK_THEME);
   });

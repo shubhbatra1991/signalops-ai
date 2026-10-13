@@ -2,10 +2,11 @@ import "server-only";
 import { buildDemoGuide, GUIDE_FEEDBACK_THEME } from "@/features/demo-guide/domain/guide";
 import { readInsightOptions } from "@/server/ai/insight-evidence";
 import { demoRepository } from "./repository";
+import { DEMO_WORKSPACE_ID } from "@/features/workspaces/domain/context";
 
 /** Builds guide links only from currently available demonstration identifiers. */
 export async function readDemoGuide() {
-  const projects = await demoRepository.listProjects("demo-workspace");
+  const projects = await demoRepository.listProjects(DEMO_WORKSPACE_ID);
   const project = projects[0];
   const funnels = project ? await demoRepository.listFunnels({ workspaceId: project.workspaceId, projectId: project.id }) : [];
   const options = await readInsightOptions();

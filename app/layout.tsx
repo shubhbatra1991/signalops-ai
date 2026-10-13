@@ -24,6 +24,15 @@ export const metadata: Metadata = {
   description: "A source-available, self-hostable product intelligence application for turning customer signals into evidence-led product work.",
   applicationName: "SignalOps-AI",
   keywords: ["product analytics", "customer feedback", "BYOK AI", "self-hosted product intelligence"],
+  icons: {
+    icon: [
+      { url: "/brand/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/brand/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/brand/android-chrome-192x192.png", type: "image/png", sizes: "192x192" },
+    ],
+    shortcut: "/brand/favicon.ico",
+    apple: [{ url: "/brand/android-chrome-192x192.png", type: "image/png", sizes: "192x192" }],
+  },
   openGraph: {
     title: "SignalOps-AI · From customer signals to product impact",
     description: "Explore deterministic product analytics, evidence-grounded AI research, missions and impact measurement in a self-hostable demonstration.",

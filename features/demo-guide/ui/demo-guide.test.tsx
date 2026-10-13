@@ -6,10 +6,10 @@ import { buildDemoGuide, DEMO_GUIDE_DISMISSAL_KEY, GUIDE_FEEDBACK_THEME, guidePr
 import { DemoGuide } from "./demo-guide";
 import { AiSessionProvider, useAiSession } from "@/features/ai/ui/ai-session";
 
-const navigation = vi.hoisted(() => ({ push: vi.fn(), pathname: "/app" }));
+const navigation = vi.hoisted(() => ({ push: vi.fn(), pathname: "/demo" }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: navigation.push }), usePathname: () => navigation.pathname }));
 const guide = buildDemoGuide({ projectId: "demo-project-flowpilot", funnelId: "demo-funnel-onboarding", feedbackThemeId: GUIDE_FEEDBACK_THEME });
-afterEach(() => { cleanup(); localStorage.clear(); navigation.push.mockReset(); navigation.pathname = "/app"; vi.restoreAllMocks(); });
+afterEach(() => { cleanup(); localStorage.clear(); navigation.push.mockReset(); navigation.pathname = "/demo"; vi.restoreAllMocks(); });
 
 test.each([[undefined, "available"], ["1", "dismissed"], ["invalid", "available"]])("pre-paint bootstrap restores guide preference %s", (saved, expected) => {
   if (saved !== undefined) localStorage.setItem(DEMO_GUIDE_DISMISSAL_KEY, saved);
@@ -27,7 +27,7 @@ test("first run offers an optional guide and starts at Overview", async () => {
   render(<DemoGuide guide={guide} />);
   expect(await screen.findByRole("heading", { name: "See the evidence trail in six steps" })).toBeVisible();
   fireEvent.click(screen.getByRole("button", { name: "Start guided demo" }));
-  expect(navigation.push).toHaveBeenCalledWith("/app");
+  expect(navigation.push).toHaveBeenCalledWith("/demo");
   expect(screen.getByRole("heading", { name: "Start with the Overview" })).toBeVisible();
   expect(screen.getByText(/Calculated activity/)).toHaveTextContent("Step 1 of 6");
 });
@@ -35,12 +35,12 @@ test("first run offers an optional guide and starts at Overview", async () => {
 test("Next and Back follow the verified URL sequence without invoking AI", async () => {
   const request = vi.spyOn(globalThis, "fetch");
   render(<DemoGuide guide={guide} />); fireEvent.click(await screen.findByRole("button", { name: "Start guided demo" }));
-  fireEvent.click(screen.getByRole("button", { name: "Next →" }));
+  fireEvent.click(screen.getByRole("button", { name: "Next" }));
   expect(screen.getByRole("heading", { name: "Inspect the onboarding funnel" })).toBeVisible();
-  fireEvent.click(screen.getByRole("button", { name: "Next →" }));
+  fireEvent.click(screen.getByRole("button", { name: "Next" }));
   expect(navigation.push).toHaveBeenLastCalledWith(expect.stringContaining("theme=integration-permissions"));
-  fireEvent.click(screen.getByRole("button", { name: "← Back" }));
-  fireEvent.click(screen.getByRole("button", { name: "← Back" }));
+  fireEvent.click(screen.getByRole("button", { name: "Back" }));
+  fireEvent.click(screen.getByRole("button", { name: "Back" }));
   expect(screen.getByRole("heading", { name: "Start with the Overview" })).toBeVisible();
   expect(request).not.toHaveBeenCalled();
 });
@@ -66,11 +66,11 @@ test("dismissal restores without affecting existing storage or application state
 test("missing evidence remains navigable with an explicit limitation", async () => {
   const missing = buildDemoGuide({});
   render(<DemoGuide guide={missing} />); fireEvent.click(await screen.findByRole("button", { name: "Start guided demo" }));
-  fireEvent.click(screen.getByRole("button", { name: "Next →" }));
-  fireEvent.click(screen.getByRole("button", { name: "Next →" }));
+  fireEvent.click(screen.getByRole("button", { name: "Next" }));
+  fireEvent.click(screen.getByRole("button", { name: "Next" }));
   expect(screen.getByRole("status")).toHaveTextContent("expected feedback theme is unavailable");
-  fireEvent.click(screen.getByRole("button", { name: "Next →" }));
-  expect(navigation.push).toHaveBeenLastCalledWith("/app/insights");
+  fireEvent.click(screen.getByRole("button", { name: "Next" }));
+  expect(navigation.push).toHaveBeenLastCalledWith("/demo/insights");
 });
 
 function SessionProbe() {
@@ -84,7 +84,7 @@ test("guide navigation leaves the existing memory-only BYOK session untouched", 
   fireEvent.click(screen.getByRole("button", { name: "Configure test session" }));
   expect(screen.getByRole("status")).toHaveTextContent("groq:openai/gpt-oss-20b");
   fireEvent.click(await screen.findByRole("button", { name: "Start guided demo" }));
-  fireEvent.click(screen.getByRole("button", { name: "Next →" }));
+  fireEvent.click(screen.getByRole("button", { name: "Next" }));
   expect(screen.getByRole("status")).toHaveTextContent("groq:openai/gpt-oss-20b");
   expect(localStorage.getItem("signalops.theme-mode")).toBeNull();
   expect(localStorage.getItem("signalops.missions")).toBeNull();

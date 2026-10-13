@@ -63,7 +63,7 @@ test("unconfigured insights are truthful and never invoke a provider automatical
   const mock = setup(); await waitFor(() => expect(mock).toHaveBeenCalledTimes(1));
   expect(screen.getByRole("button", { name: "Review evidence before sending" })).toBeDisabled();
   expect(screen.getByText(/No provider is ready/)).toBeVisible(); expect(screen.getByText(/No AI-generated insights yet/)).toBeVisible();
-  expect(screen.getByRole("link", { name: /Configure an AI provider/ })).toHaveAttribute("href", "/app/settings");
+  expect(screen.getByRole("link", { name: /Configure an AI provider/ })).toHaveAttribute("href", "/demo/settings");
 });
 test("review displays exact prompt and destination but never submits credentials or generates before approval", async () => {
   const storage = vi.spyOn(Storage.prototype, "setItem"); const mock = setup(); await inspect();

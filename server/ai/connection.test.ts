@@ -116,11 +116,15 @@ test("deployment policy defaults public, requires explicit self-hosted enablemen
     .toEqual({ mode: "self-hosted", providerRequestsEnabled: true, configurationValid: true });
   expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "public-demo", AI_ENABLE_PROVIDER_REQUESTS: "true" }))
     .toEqual({ mode: "public-demo", providerRequestsEnabled: false, configurationValid: false });
+  expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "hosted", AI_ENABLE_PROVIDER_REQUESTS: "false" }))
+    .toEqual({ mode: "hosted", providerRequestsEnabled: false, configurationValid: true });
+  expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "hosted", AI_ENABLE_PROVIDER_REQUESTS: "true" }))
+    .toEqual({ mode: "hosted", providerRequestsEnabled: false, configurationValid: false });
   expect(readDeploymentPolicy({ SIGNALOPS_DEPLOYMENT_MODE: "unexpected", AI_ENABLE_PROVIDER_REQUESTS: "TRUE" }))
     .toEqual({ mode: "public-demo", providerRequestsEnabled: false, configurationValid: false });
 });
-test("public deployment rejects direct provider requests before budget or network access", async () => {
-  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", "public-demo"); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "true");
+test.each(["public-demo", "hosted"] as const)("%s deployment rejects direct provider requests before budget or network access", async (mode) => {
+  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", mode); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "true");
   const mock = vi.fn(); vi.stubGlobal("fetch", mock);
   const response = await connectionPost(request());
   expect(response.status).toBe(403); expect(await response.json()).toMatchObject({ ok: false, code: "provider_requests_disabled" });

@@ -8,6 +8,7 @@ import type {
   Project,
   FeedbackThemeId,
 } from "@/features/customer-intelligence/domain/types";
+import { DEMO_WORKSPACE_ID } from "@/features/workspaces/domain/context";
 
 export interface DemoDataset {
   readonly metadata: DemonstrationMetadata;
@@ -20,7 +21,7 @@ export interface DemoDataset {
 
 /** Fixed fictional fixture, not a simulator, live activity or generated AI output. */
 export function createDemoDataset(): DemoDataset {
-  const scope = { workspaceId: "demo-workspace", projectId: "demo-project-flowpilot" };
+  const scope = { workspaceId: DEMO_WORKSPACE_ID, projectId: "demo-project-flowpilot" };
   const dataOrigin = "demonstration" as const;
   const baseTime = Date.parse("2026-06-01T10:00:00.000Z");
   const minute = 60_000;

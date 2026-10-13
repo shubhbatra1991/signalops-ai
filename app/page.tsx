@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { LandingPage } from "@/features/marketing/ui/landing-page";
+import { withQuery } from "@/features/shell/product-routes";
 import { readDemoScreen } from "@/server/modules/demo/read-demo-screen";
 
 export const metadata: Metadata = {
@@ -18,11 +19,7 @@ export default function Home({ searchParams = Promise.resolve({}) }: Partial<Pic
 async function LandingContent({ searchParams }: Pick<PageProps<"/">, "searchParams">) {
   const query = await searchParams;
   if (Object.keys(query).some((key) => legacyFilterKeys.has(key))) {
-    const params = new URLSearchParams();
-    for (const [key, value] of Object.entries(query)) {
-      for (const item of Array.isArray(value) ? value : value === undefined ? [] : [value]) params.append(key, item);
-    }
-    redirect(`/app?${params}`);
+    redirect(withQuery("/demo", query));
   }
   return <LandingPage preview={await readDemoScreen({})} />;
 }

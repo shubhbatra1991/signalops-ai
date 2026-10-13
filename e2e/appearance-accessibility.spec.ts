@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => dismissGuideBeforeLoad(page));
 
 test("Light, Dark, controlled-time Auto and an accent apply consistently", async ({ page }) => {
   await page.clock.setFixedTime(new Date(2030, 5, 1, 19, 0, 0));
-  await page.goto("/app/settings");
+  await page.goto("/demo/settings");
   const root = page.locator("html");
   await expect(root).toHaveAttribute("data-theme", "light");
   await page.getByRole("combobox", { name: "Appearance" }).selectOption("dark");
@@ -20,7 +20,7 @@ test("Light, Dark, controlled-time Auto and an accent apply consistently", async
 
 test("keyboard navigation and application layout remain usable at 320px", async ({ page, browserName }) => {
   await page.setViewportSize({ width: 320, height: 800 });
-  await page.goto("/app");
+  await page.goto("/demo");
   const skipLink = page.getByRole("link", { name: "Skip to main content" });
   if (browserName === "webkit") await skipLink.focus();
   else await page.keyboard.press("Tab");

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { MissionDetail } from "./mission-detail";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { EmptyStateIcon } from "@/features/icons/app-icon";
 import { useAiSession } from "@/features/ai/ui/ai-session";
 import { browserMissionRepository, missionStorageKey, type MissionSnapshot } from "../domain/repository";
 import { createMission, updateMission, priorities, statuses, sources, unresolvedReferences, referenceKey, type Mission, type MissionInput, type MissionContext } from "../domain/missions";
@@ -127,7 +128,7 @@ export function MissionsScreen({ context, seed = {} }: { context: MissionContext
       <button className="secondary-button" aria-pressed={archive} onClick={() => setFilters({ ...filters, status: archive ? "" : "cancelled" })}>{archive ? "Back to active missions" : `Cancelled archive (${snapshot.missions.filter((mission) => mission.status === "cancelled").length})`}</button>
     </div>
     <p className="mission-count-note">Column counts reflect the current search and filters. Completed work does not establish positive impact.</p>
-    {ready && visible.length === 0 && <section className="empty-panel"><h2>No missions in this selection</h2><p>Create a mission or reset filters. No sample work items are invented.</p></section>}
+    {ready && visible.length === 0 && <section className="empty-panel"><EmptyStateIcon name="missions" /><h2>No missions in this selection</h2><p>Create a mission or reset filters. No sample work items are invented.</p></section>}
     {view === "list" || archive ? <section className="mission-list" aria-label={archive ? "Cancelled missions" : "Mission list"}>{visible.map(card)}</section> : <div className="mission-board" role="region" aria-label="Mission board — Backlog, In Progress and Completed" tabIndex={0}>{(["backlog", "in_progress", "completed"] as const).map((status) => {
       const missions = visible.filter((mission) => mission.status === status);
       return <section key={status} aria-label={statusLabel[status]}><h2>{statusLabel[status]} <span className="mission-count" aria-label={`${missions.length} mission${missions.length === 1 ? "" : "s"}`}>{missions.length}</span></h2>{missions.map(card)}{!missions.length && <p className="mission-column-empty">No {statusLabel[status].toLowerCase()} missions.</p>}</section>;

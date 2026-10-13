@@ -6,25 +6,25 @@ This repository includes a machine-readable [CycloneDX 1.5 SBOM](SBOM.cdx.json) 
 npm sbom --package-lock-only --omit optional --sbom-format cyclonedx --sbom-type application
 ```
 
-Generation on 2026-10-13 produced 426 dependency components. Optional platform packages are omitted because npm's complete lockfile traversal reported unresolved cross-platform optional/peer relationships; they remain recorded in `package-lock.json` and require separate review for each deployment platform.
+Regeneration for the landing-page motion enhancement on 2026-10-13 produced 430 dependency components. Optional platform packages are omitted because npm's complete lockfile traversal reported unresolved cross-platform optional/peer relationships; they remain recorded in `package-lock.json` and require separate review for each deployment platform.
 
 ## Declared licence metadata
 
 | Licence identifier | Components |
 | --- | ---: |
-| MIT | 360 |
+| MIT | 364 |
 | Apache-2.0 | 25 |
-| ISC | 16 |
+| ISC | 17 |
 | BSD-2-Clause | 9 |
 | BSD-3-Clause | 3 |
-| MPL-2.0 | 5 |
+| MPL-2.0 | 4 |
 | BlueOak-1.0.0 | 2 |
 | CC0-1.0 | 2 |
 | MIT-0 | 2 |
 | CC-BY-4.0 | 1 |
 | Python-2.0 | 1 |
 
-All direct runtime dependencies currently declare MIT. Direct development dependencies declare MIT except TypeScript and Playwright, which declare Apache-2.0, and `@axe-core/playwright`, which declares MPL-2.0. Its installed `axe-core` dependency also declares MPL-2.0.
+Direct runtime dependencies declare MIT except `lucide-react` 1.56.0, which declares ISC. `motion` 14.2.0 declares MIT and is used only by the public landing-page presentation layer. Lucide's distributed licence also identifies Feather-derived icons covered by the included MIT notice. Direct development dependencies declare MIT except TypeScript and Playwright, which declare Apache-2.0, and `@axe-core/playwright`, which declares MPL-2.0. Its installed `axe-core` dependency also declares MPL-2.0.
 
 This inventory reflects package metadata and is not a legal opinion, a complete attribution bundle or a statement of licence compliance. Before distribution, qualified review should confirm:
 

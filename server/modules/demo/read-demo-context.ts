@@ -1,10 +1,11 @@
 import "server-only";
 import { demoRepository, getDemoMetadata } from "./repository";
 import { parseFilters, selectedRange, type SearchInput } from "@/features/customer-intelligence/domain/explorer";
+import { DEMO_WORKSPACE_ID } from "@/features/workspaces/domain/context";
 
 /** Shared public demo selection, not an authorization boundary. */
 export async function readDemoContext(input: SearchInput) {
-  const projects = await demoRepository.listProjects("demo-workspace");
+  const projects = await demoRepository.listProjects(DEMO_WORKSPACE_ID);
   const project = projects.find((item) => item.id === input.project) ?? projects[0];
   if (!project) throw new Error("Demonstration project is unavailable.");
   const scope = { workspaceId: project.workspaceId, projectId: project.id };

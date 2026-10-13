@@ -9,7 +9,7 @@ import { FunnelPanel } from "./funnel-panel";
 const utc = (value: string) => `${value.slice(0, 10)} ${value.slice(11, 19)} UTC`;
 export function AnalyticsScreen({ page, model }: { page: AnalyticsPage; model: DemoScreenModel }) {
   const title = { overview: "Overview", events: "Events", funnels: "Funnels" }[page];
-  const path = page === "overview" ? "/app" : `/app/${page}`;
+  const path = page === "overview" ? "/demo" : `/demo/${page}`;
   const { filters } = model;
   return <>
     <div className="page-heading"><div><p className="eyebrow">{model.project.productName} · Customer intelligence</p>

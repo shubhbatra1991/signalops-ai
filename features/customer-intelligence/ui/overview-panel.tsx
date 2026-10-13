@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AppIcon, EmptyStateIcon } from "@/features/icons/app-icon";
 import type { DemoScreenModel } from "@/server/modules/demo/read-demo-screen";
 import { analyticsHref } from "../domain/explorer";
 
@@ -12,7 +13,7 @@ export function OverviewPanel({ model }: { model: DemoScreenModel }) {
     ["Observed drop-off", `${model.dropOffRate.toFixed(1)}%`, `${model.dropOffCount} entrants did not complete in this window`],
   ];
   return <>
-    {eventSummary.totalEvents === 0 && <div className="empty-panel"><h2>No activity in this selection</h2><p>Choose another date range or reset the customer filter to explore the demonstration.</p></div>}
+    {eventSummary.totalEvents === 0 && <div className="empty-panel"><EmptyStateIcon name="overview" /><h2>No activity in this selection</h2><p>Choose another date range or reset the customer filter to explore the demonstration.</p></div>}
     <div className="metric-grid">{metrics.map(([title, value, definition]) => <section key={title} className="metric-card" aria-label={title}><h2>{title}</h2><strong>{value}</strong><p>{definition}</p></section>)}</div>
     <div className="analytics-grid"><section className="analytics-card activity-card"><div className="card-heading"><div><h2>Event activity</h2><p>Daily event occurrences · UTC</p></div><span className="badge">{eventSummary.totalEvents} events</span></div>
       <svg viewBox="0 0 640 220" role="img" aria-label={`Daily demonstration event activity: ${eventSummary.totalEvents} events. Exact counts in the table below.`}>
@@ -22,6 +23,6 @@ export function OverviewPanel({ model }: { model: DemoScreenModel }) {
       </svg>
       <details className="data-disclosure"><summary>View daily counts as a table</summary><table><caption>Demo event occurrences by UTC date</caption><thead><tr><th scope="col">Date (UTC)</th><th scope="col">Events</th></tr></thead><tbody>{activity.map((day) => <tr key={day.date}><th scope="row">{day.date}</th><td>{day.events}</td></tr>)}</tbody></table></details>
     </section><section className="analytics-card"><h2>Top event types</h2><p className="card-subtitle">Ranked by actual occurrences</p><ol className="event-ranking">{model.topEvents.map((event) => <li key={event.eventName}><Link className="text-link" href={analyticsHref("/events", model.filters, { type: event.eventName, q: "", page: 1 })}>{event.eventName}</Link><strong>{event.count}</strong></li>)}</ol>{!model.topEvents.length && <p>No event types in this selection.</p>}</section></div>
-    <section className="analytics-card funnel-summary"><div><p className="eyebrow">Selected funnel</p><h2>{funnel?.name ?? "No configured funnel"}</h2><p>{funnel?.entrants ?? 0} entrants → {funnel?.completed ?? 0} completed · Strict sequential progression</p></div><Link className="primary-button" href={analyticsHref("/funnels", model.filters)}>Explore funnel →</Link></section>
+    <section className="analytics-card funnel-summary"><div><p className="eyebrow">Selected funnel</p><h2>{funnel?.name ?? "No configured funnel"}</h2><p>{funnel?.entrants ?? 0} entrants → {funnel?.completed ?? 0} completed · Strict sequential progression</p></div><Link className="primary-button" href={analyticsHref("/funnels", model.filters)}>Explore funnel <AppIcon name="arrow-right" size={18} /></Link></section>
   </>;
 }

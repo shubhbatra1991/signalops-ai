@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => dismissGuideBeforeLoad(page));
 
 test("manual mission can be edited, completed and restored after reload", async ({ page }) => {
   const title = "E2E onboarding research";
-  await page.goto("/app/missions");
+  await page.goto("/demo/missions");
   const newMission = page.getByRole("button", { name: "New Mission" });
   await fillMission(page, title);
   await expect(newMission).toBeFocused();
@@ -22,7 +22,7 @@ test("manual mission can be edited, completed and restored after reload", async 
   await page.getByRole("button", { name: "Save mission" }).click();
   await page.getByRole("combobox", { name: `Status for ${title} updated` }).selectOption("completed");
 
-  await page.goto("/app/impact");
+  await page.goto("/demo/impact");
   await expect(page.getByRole("heading", { name: "Impact Analytics" })).toBeVisible();
   await expect(page.getByRole("button", { name: `${title} updated` })).toBeVisible();
   await expect(page.getByText("not evaluated", { exact: true })).toBeVisible();

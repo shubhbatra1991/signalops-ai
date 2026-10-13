@@ -10,7 +10,8 @@ export type EvaluationRecord = z.infer<typeof evaluationRecordSchema>;
 const envelopeSchema = z.strictObject({ version: z.literal(1), evaluations: z.array(evaluationRecordSchema).max(200) })
   .refine((value) => new Set(value.evaluations.map((item) => item.id)).size === value.evaluations.length);
 export interface EvaluationSnapshot { evaluations: EvaluationRecord[]; writable: boolean; message: string }
-export interface EvaluationRepository { load(): EvaluationSnapshot; save(evaluations: EvaluationRecord[]): EvaluationSnapshot }
+/** Guest-only browser history. Future workspace evaluations require server authorization. */
+export interface GuestEvaluationRepository { load(): EvaluationSnapshot; save(evaluations: EvaluationRecord[]): EvaluationSnapshot }
 type StoragePort = Pick<Storage, "getItem" | "setItem">;
 const blocked = (message: string): EvaluationSnapshot => ({ evaluations: [], writable: false, message });
 
@@ -19,7 +20,7 @@ export function toEvaluationRecord(evaluation: MissionEvaluation, missionFingerp
 }
 
 /** Evaluation history is append-only from this UI; invalid or unknown data is preserved and blocks writes. */
-export function browserEvaluationRepository(storage: () => StoragePort): EvaluationRepository {
+export function browserEvaluationRepository(storage: () => StoragePort): GuestEvaluationRepository {
   let original: string | null | undefined;
   let writable = false;
   return {

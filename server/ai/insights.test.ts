@@ -51,9 +51,9 @@ test("trusted feedback reconstruction is deterministic, minimized and matches ac
   expect(serialized).not.toMatch(/customerId|relatedEventIds|properties|displayName|"text"/);
   for (const record of records) { expect(serialized).not.toContain(record.text); expect(serialized).not.toContain(record.customerId); }
 });
-test("public deployment rejects preview and generation directly without provider access", async () => {
+test.each(["public-demo", "hosted"] as const)("%s deployment rejects preview and generation directly without provider access", async (mode) => {
   const reviewed = await review();
-  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", "public-demo"); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "false");
+  vi.stubEnv("SIGNALOPS_DEPLOYMENT_MODE", mode); vi.stubEnv("AI_ENABLE_PROVIDER_REQUESTS", "false");
   const mock = vi.fn(); vi.stubGlobal("fetch", mock);
   const preview = await insightsPost(request({ action: "preview", mode: "browser", provider: "openai", model: providers.openai.model, selection }));
   expect(preview.status).toBe(403); expect(await preview.json()).toMatchObject({ ok: false, code: "provider_requests_disabled" });
