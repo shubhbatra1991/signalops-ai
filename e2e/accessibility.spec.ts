@@ -18,15 +18,21 @@ test("landing page has no detectable WCAG A/AA violations", async ({ page }) => 
   await expectNoAxeViolations(page);
 });
 
+test("experience selection has no detectable WCAG A/AA violations", async ({ page }) => {
+  await page.goto("/start");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expectNoAxeViolations(page);
+});
+
 for (const [name, path] of [
-  ["Overview", "/app"],
-  ["Events", "/app/events"],
-  ["Funnels", "/app/funnels"],
-  ["Feedback", "/app/feedback"],
-  ["AI Insights", "/app/insights"],
-  ["Product Missions", "/app/missions"],
-  ["Impact Analytics", "/app/impact"],
-  ["Settings", "/app/settings"],
+  ["Overview", "/demo"],
+  ["Events", "/demo/events"],
+  ["Funnels", "/demo/funnels"],
+  ["Feedback", "/demo/feedback"],
+  ["AI Insights", "/demo/insights"],
+  ["Product Missions", "/demo/missions"],
+  ["Impact Analytics", "/demo/impact"],
+  ["Settings", "/demo/settings"],
 ] as const) {
   test(`${name} has no detectable WCAG A/AA violations`, async ({ page }) => {
     await dismissGuideBeforeLoad(page);
@@ -38,7 +44,7 @@ for (const [name, path] of [
 
 test("mission editor dialog has no detectable WCAG A/AA violations", async ({ page }) => {
   await dismissGuideBeforeLoad(page);
-  await page.goto("/app/missions");
+  await page.goto("/demo/missions");
   await page.getByRole("button", { name: "New Mission" }).click();
   await expect(page.getByRole("dialog", { name: "Review new mission" })).toBeVisible();
   await expectNoAxeViolations(page);
@@ -47,14 +53,14 @@ test("mission editor dialog has no detectable WCAG A/AA violations", async ({ pa
 test("mobile navigation has no detectable WCAG A/AA violations", async ({ page }) => {
   await dismissGuideBeforeLoad(page);
   await page.setViewportSize({ width: 320, height: 800 });
-  await page.goto("/app");
+  await page.goto("/demo");
   await page.locator("summary[aria-label='Menu — toggle navigation']").click();
   await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toBeVisible();
   await expectNoAxeViolations(page);
 });
 
 test("active guided demo has no detectable WCAG A/AA violations", async ({ page }) => {
-  await page.goto("/app");
+  await page.goto("/demo");
   await page.getByRole("button", { name: "Start guided demo" }).click();
   await expect(page.getByRole("heading", { name: "Start with the Overview" })).toBeVisible();
   await expectNoAxeViolations(page);
@@ -63,7 +69,7 @@ test("active guided demo has no detectable WCAG A/AA violations", async ({ page 
 test("reduced motion, forced colours and chart alternatives remain available", async ({ page }) => {
   await dismissGuideBeforeLoad(page);
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "active" });
-  await page.goto("/app");
+  await page.goto("/demo");
   expect(await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches)).toBe(true);
   expect(await page.evaluate(() => matchMedia("(forced-colors: active)").matches)).toBe(true);
   const skipLink = page.getByRole("link", { name: "Skip to main content" });

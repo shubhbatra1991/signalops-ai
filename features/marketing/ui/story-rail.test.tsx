@@ -15,7 +15,7 @@ test("workflow is an accessible keyboard-operated tab sequence", () => {
   expect(funnels).toHaveFocus();
   expect(funnels).toHaveAttribute("aria-selected", "true");
   expect(screen.getByRole("tabpanel")).toHaveTextContent("strict sequential progression");
-  expect(screen.getByRole("link", { name: /Explore Funnels/ })).toHaveAttribute("href", "/app/funnels");
+  expect(screen.getByRole("link", { name: /Explore Funnels/ })).toHaveAttribute("href", "/demo/funnels");
 });
 
 test("Home and End move to the workflow boundaries", () => {

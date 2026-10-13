@@ -69,7 +69,7 @@ export function analyticsHref(path: string, filters: ExplorerFilters, changes: P
     params.set("sort", next.sort);
     params.set("page", String(next.page));
   }
-  return `/app${path === "/" ? "" : path}?${params}`;
+  return `/demo${path === "/" ? "" : path}?${params}`;
 }
 const compareId = (left: string, right: string) => left < right ? -1 : left > right ? 1 : 0;
 /** Input already has the shared project, UTC date and customer filters applied. */

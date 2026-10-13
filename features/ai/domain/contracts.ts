@@ -16,7 +16,7 @@ export const configurationSchema = z.strictObject({
   serverTestsEnabled: z.boolean(),
   serverInsightsEnabled: z.boolean().optional(),
   deployment: z.strictObject({
-    mode: z.enum(["public-demo", "self-hosted"]),
+    mode: z.enum(["public-demo", "self-hosted", "hosted"]),
     providerRequestsEnabled: z.boolean(),
     configurationValid: z.boolean(),
   }),

@@ -4,7 +4,7 @@ import { keySchema, selectionSchema, type PublicConfiguration } from "@/features
 
 const keyVariables = { openai: "OPENAI_API_KEY", groq: "GROQ_API_KEY", anthropic: "ANTHROPIC_API_KEY", zai: "ZAI_API_KEY" } as const;
 const enabledSchema = z.enum(["true", "false"]).default("false");
-const deploymentModeSchema = z.enum(["public-demo", "self-hosted"]);
+const deploymentModeSchema = z.enum(["public-demo", "self-hosted", "hosted"]);
 
 export function readDeploymentPolicy(env: Readonly<Record<string, string | undefined>> = process.env) {
   const requestedMode = deploymentModeSchema.safeParse(env.SIGNALOPS_DEPLOYMENT_MODE ?? "public-demo");
@@ -12,7 +12,7 @@ export function readDeploymentPolicy(env: Readonly<Record<string, string | undef
   const mode = requestedMode.success ? requestedMode.data : "public-demo";
   const explicitlyEnabled = requestedProviderAccess.success && requestedProviderAccess.data === "true";
   const configurationValid = requestedMode.success && requestedProviderAccess.success &&
-    !(mode === "public-demo" && explicitlyEnabled);
+    !(mode !== "self-hosted" && explicitlyEnabled);
 
   return {
     mode,

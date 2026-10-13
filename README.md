@@ -18,7 +18,7 @@ The repository is currently a **demo-first application**. All bundled customers,
 - Responsive Light, Dark and time-based Auto appearance modes with six accent choices.
 - A nonce-based Content Security Policy and a fail-closed public deployment mode.
 
-Open the application at `/app`. The working sections are `/app/events`, `/app/funnels`, `/app/feedback`, `/app/insights`, `/app/missions`, `/app/impact` and `/app/settings`.
+Open the guest application at `/demo`. The working sections are `/demo/events`, `/demo/funnels`, `/demo/feedback`, `/demo/insights`, `/demo/missions`, `/demo/impact` and `/demo/settings`. Legacy `/app` links redirect to their `/demo` equivalents and preserve query parameters. Authenticated workspaces are reserved under `/w/[workspaceSlug]` but remain unavailable until server-side authentication and membership checks are implemented.
 
 ## Product preview
 
@@ -85,10 +85,11 @@ AI_ENABLE_PROVIDER_REQUESTS=true
 | Mode | Configuration | Behavior |
 | --- | --- | --- |
 | Public demonstration | Defaults, or `SIGNALOPS_DEPLOYMENT_MODE=public-demo` | Both AI POST endpoints reject provider requests server-side. Deterministic features continue to work. |
+| Hosted foundation | `hosted` and `AI_ENABLE_PROVIDER_REQUESTS=false` | Guest features work; all provider requests remain disabled until authenticated workspace authorization exists. |
 | Self-hosted without AI | `self-hosted` and `AI_ENABLE_PROVIDER_REQUESTS=false` | Analytics and local workflows work; provider requests remain disabled. |
 | Self-hosted BYOK | `self-hosted` and `AI_ENABLE_PROVIDER_REQUESTS=true` | Browser-memory keys may be used. Server credentials require additional explicit flags described below. |
 
-Unknown values and attempts to enable provider requests in `public-demo` mode fail closed. Hiding controls in the browser is not the security boundary; both AI endpoints enforce this policy on the server.
+Unknown values and attempts to enable provider requests in `public-demo` or `hosted` mode fail closed. Hiding controls in the browser is not the security boundary; both AI endpoints enforce this policy on the server.
 
 ### Supported provider allowlist
 

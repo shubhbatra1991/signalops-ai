@@ -4,7 +4,7 @@ import { dismissGuideBeforeLoad } from "./helpers";
 test.beforeEach(async ({ page }) => dismissGuideBeforeLoad(page));
 
 test("overview, events and funnels share filter navigation", async ({ page }) => {
-  await page.goto("/app");
+  await page.goto("/demo");
   await expect(page.getByRole("heading", { name: "Overview" })).toBeVisible();
   await page.getByRole("combobox", { name: "Date range" }).selectOption("first-week");
   await page.getByRole("button", { name: "Apply filters" }).click();
@@ -22,7 +22,7 @@ test("overview, events and funnels share filter navigation", async ({ page }) =>
 });
 
 test("feedback theme exposes record and event evidence links", async ({ page }) => {
-  await page.goto("/app/feedback?range=all&theme=integration-permissions&sort=desc&page=1");
+  await page.goto("/demo/feedback?range=all&theme=integration-permissions&sort=desc&page=1");
   await expect(page.getByRole("heading", { name: "Feedback", exact: true })).toBeVisible();
   await expect(page.getByRole("combobox", { name: "Theme" })).toHaveValue("integration-permissions");
   const evidenceLink = page.locator(".opportunity-grid .evidence-links a").first();
@@ -32,5 +32,5 @@ test("feedback theme exposes record and event evidence links", async ({ page }) 
   await page.locator("details.feedback-detail summary").first().click();
   const eventLink = page.locator(".feedback-context-links a").first();
   await expect(eventLink).toBeVisible();
-  await expect(eventLink).toHaveAttribute("href", /\/app\/events/);
+  await expect(eventLink).toHaveAttribute("href", /\/demo\/events/);
 });

@@ -3,12 +3,13 @@ import { useSyncExternalStore } from "react";
 import { themeStore } from "../theme-store";
 import { accentStore } from "../accent-store";
 import { accents } from "../domain/accent";
+import { AppIcon } from "@/features/icons/app-icon";
 
 export function ThemeControl() {
   const mode = useSyncExternalStore(themeStore.subscribe, themeStore.getSnapshot, themeStore.getServerSnapshot);
   const accent = useSyncExternalStore(accentStore.subscribe, accentStore.getSnapshot, accentStore.getServerSnapshot);
   return <><div className="theme-control">
-    <label htmlFor="theme-mode">Appearance</label>
+    <label htmlFor="theme-mode"><AppIcon name="appearance" size={16} />Appearance</label>
     <select id="theme-mode" value={mode} onChange={(event) => themeStore.select(event.target.value)} aria-describedby="theme-help">
       <option value="light">Light</option><option value="dark">Dark</option><option value="auto">Auto</option>
     </select>

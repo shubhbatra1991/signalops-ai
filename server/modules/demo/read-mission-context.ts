@@ -8,7 +8,7 @@ export async function readMissionContext(): Promise<MissionContext> {
   const evidence = await Promise.all(options.options.map(async (option) => {
     const resolved = await reconstructEvidence(option.selection);
     return resolved.facts.map((fact) => ({ reference: { ...option.selection, id: fact.id }, label: option.label,
-      href: fact.href, eventsHref: `/app/events?${new URLSearchParams({ project: option.selection.project, range: option.selection.range })}`, baseline: fact.observation }));
+      href: fact.href, eventsHref: `/demo/events?${new URLSearchParams({ project: option.selection.project, range: option.selection.range })}`, baseline: fact.observation }));
   }));
   return { projects: options.projects, evidence: evidence.flat() };
 }

@@ -68,7 +68,7 @@ export function measure(events: readonly ProductEvent[], metric: MetricDefinitio
   }
   const evidence = [...selected].sort((a, b) => a.occurredAt.localeCompare(b.occurredAt) || a.id.localeCompare(b.id))
     .map((event) => ({ id: event.id, occurredAt: event.occurredAt,
-      href: `/app/events?project=${encodeURIComponent(metric.projectId)}&range=all&q=${encodeURIComponent(event.id)}` }));
+      href: `/demo/events?project=${encodeURIComponent(metric.projectId)}&range=all&q=${encodeURIComponent(event.id)}` }));
   return { metric, period, evidence, status: "available", value: metric.kind === "event_count" ? countEvents(events, query) : countUniqueCustomers(events, query) };
 }
 

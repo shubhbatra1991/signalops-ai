@@ -86,6 +86,7 @@ describe("fictional dataset integrity", () => {
 
 describe("read-only demo application access", () => {
   test("exposes all six storage-independent reads with demo identity", async () => {
+    expect(demoRepository.context).toEqual({ kind: "demo", workspaceId: "demo-workspace", dataOrigin: "demonstration" });
     expect(await demoRepository.listProjects(scope.workspaceId)).toHaveLength(1);
     expect((await demoRepository.getProject(scope))?.dataOrigin).toBe("demonstration");
     expect(await demoRepository.listCustomers(scope)).toHaveLength(32);

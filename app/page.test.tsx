@@ -7,7 +7,7 @@ import { navigation } from "@/features/shell/navigation";
 import { SectionPage } from "@/features/shell/ui/section-page";
 
 const queryState = vi.hoisted(() => ({ value: "" }));
-vi.mock("next/navigation", () => ({ usePathname: () => "/app", useSearchParams: () => new URLSearchParams(queryState.value) }));
+vi.mock("next/navigation", () => ({ usePathname: () => "/demo", useSearchParams: () => new URLSearchParams(queryState.value) }));
 const content = <h1>Overview</h1>;
 afterEach(() => { cleanup(); localStorage.clear(); queryState.value = ""; });
 
@@ -27,11 +27,16 @@ test("shell has named navigation, landmarks, current route and skip target", () 
   render(<ApplicationShell>{content}</ApplicationShell>);
   expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
   expect(screen.getByRole("banner")).toBeInTheDocument();
+  expect(within(screen.getByRole("banner")).getByRole("link", { name: "SignalOps-AI" })).toHaveAttribute("href", "/");
   expect(screen.getByRole("link", { name: "Skip to main content" })).toHaveAttribute("href", "#main-content");
   expect(screen.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
   const nav = screen.getByRole("navigation", { name: "Primary navigation" });
   expect(within(nav).getAllByRole("link")).toHaveLength(8);
+  expect(nav.querySelectorAll("svg[aria-hidden='true']")).toHaveLength(8);
   expect(within(nav).getByRole("link", { name: "Overview" })).toHaveAttribute("aria-current", "page");
+  expect(screen.getByRole("link", { name: "SignalOps-AI home" })).toHaveAttribute("href", "/");
+  expect(screen.getAllByRole("link", { name: "Switch experience" })).toHaveLength(3);
+  expect(screen.getAllByRole("link", { name: "Switch experience" })[0]).toHaveAttribute("href", "/start");
 });
 
 test.each(navigation)("$title shows a truthful empty state", (section) => {
@@ -48,7 +53,7 @@ test("mobile disclosure exposes all routes and Escape closes it with focus resto
   if (!details) throw new Error("Missing native disclosure");
   fireEvent.click(summary);
   expect(details.open).toBe(true);
-  expect(within(screen.getByRole("navigation", { name: "Mobile navigation" })).getAllByRole("link")).toHaveLength(8);
+  expect(within(screen.getByRole("navigation", { name: "Mobile navigation" })).getAllByRole("link")).toHaveLength(9);
   fireEvent.keyDown(summary, { key: "Escape" });
   expect(details.open).toBe(false);
   expect(summary).toHaveFocus();

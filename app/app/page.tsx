@@ -1,10 +1,6 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import { AnalyticsRoute } from "@/features/customer-intelligence/ui/analytics-route";
-import Loading from "./[section]/loading";
+import { redirect } from "next/navigation";
+import { withQuery } from "@/features/shell/product-routes";
 
-export const metadata: Metadata = { title: "Overview" };
-
-export default function Overview({ searchParams = Promise.resolve({}) }: Partial<Pick<PageProps<"/app">, "searchParams">>) {
-  return <Suspense fallback={<Loading />}><AnalyticsRoute page="overview" searchParams={searchParams} /></Suspense>;
+export default async function LegacyApp({ searchParams }: PageProps<"/app">) {
+  redirect(withQuery("/demo", await searchParams));
 }

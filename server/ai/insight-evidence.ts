@@ -1,6 +1,7 @@
 import "server-only";
 import type { EvidenceSelection, InsightOptions } from "@/features/ai/domain/insights";
 import { demoRepository, getDemoMetadata } from "@/server/modules/demo/repository";
+import { DEMO_WORKSPACE_ID } from "@/features/workspaces/domain/context";
 import { presets, selectedRange } from "@/features/customer-intelligence/domain/explorer";
 import { buildFeedbackEvidence } from "@/features/feedback/domain/evidence";
 import { summarizeFeedback } from "@/features/feedback/domain/feedback";
@@ -8,7 +9,7 @@ import { calculateFunnel } from "@/domain/analytics/funnel";
 import { AiError } from "./errors";
 
 export async function readInsightOptions(): Promise<InsightOptions> {
-  const projects = await demoRepository.listProjects("demo-workspace");
+  const projects = await demoRepository.listProjects(DEMO_WORKSPACE_ID);
   const options: InsightOptions["options"] = [];
   for (const project of projects) {
     const scope = { workspaceId: project.workspaceId, projectId: project.id };
@@ -34,7 +35,7 @@ export async function readInsightOptions(): Promise<InsightOptions> {
  */
 export async function reconstructEvidence(selection: EvidenceSelection) {
   if (!presets.some((preset) => preset.id === selection.range)) throw new AiError("invalid_evidence", 400);
-  const project = (await demoRepository.listProjects("demo-workspace")).find((item) => item.id === selection.project);
+  const project = (await demoRepository.listProjects(DEMO_WORKSPACE_ID)).find((item) => item.id === selection.project);
   if (!project) throw new AiError("invalid_evidence", 400);
   const scope = { workspaceId: project.workspaceId, projectId: project.id };
   const range = selectedRange(selection.range);
@@ -52,7 +53,7 @@ export async function reconstructEvidence(selection: EvidenceSelection) {
     const opportunity = evidence.feedbackSummary.opportunities.find((item) => item.id === selection.evidenceId);
     if (!opportunity) throw new AiError("invalid_evidence", 400);
     query.set("theme", opportunity.id);
-    const facts = [{ id: `theme:${opportunity.id}`, observation: `${opportunity.label}: ${opportunity.recordCount} feedback records from ${opportunity.contributors} distinct contributors in the selected UTC window. These tags are fixture-authored.`, href: `/app/feedback?${query}` }];
+    const facts = [{ id: `theme:${opportunity.id}`, observation: `${opportunity.label}: ${opportunity.recordCount} feedback records from ${opportunity.contributors} distinct contributors in the selected UTC window. These tags are fixture-authored.`, href: `/demo/feedback?${query}` }];
     return { ...base, population: evidence.population, facts,
       annotations: evidence.sourceMetadata.annotations, sources: evidence.sourceMetadata.sources,
       coverage: evidence.coverage,
@@ -73,7 +74,7 @@ export async function reconstructEvidence(selection: EvidenceSelection) {
   query.set("funnel", funnel.id);
   const previous = result.steps[index - 1].customers;
   return { ...base, population: "unique-first-entry-customers-in-selected-event-window",
-    facts: [{ id: `funnel:${step.stepId}`, observation: `${step.name}: ${step.customers} of ${previous} customers at the previous step progressed; ${step.dropOffCount} did not progress within the observation window (${step.dropOffRate.toFixed(1)}%). This is observed noncompletion, not abandonment.`, href: `/app/funnels?${query}` }],
+    facts: [{ id: `funnel:${step.stepId}`, observation: `${step.name}: ${step.customers} of ${previous} customers at the previous step progressed; ${step.dropOffCount} did not progress within the observation window (${step.dropOffRate.toFixed(1)}%). This is observed noncompletion, not abandonment.`, href: `/demo/funnels?${query}` }],
     analytics: { algorithmVersion: result.algorithmVersion, countingUnit: result.countingUnit,
       conversionWindowMs: result.conversionWindowMs, entrants: result.entrants,
       previousStepCustomers: previous, stepCustomers: step.customers, dropOffCount: step.dropOffCount,
