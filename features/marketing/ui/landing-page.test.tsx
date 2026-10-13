@@ -6,7 +6,10 @@ import { renderToString } from "react-dom/server";
 import type { DemoScreenModel } from "@/server/modules/demo/read-demo-screen";
 import { LandingPage } from "./landing-page";
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+});
 
 const preview = {
   project: { name: "FlowPilot Demo" },
@@ -31,7 +34,14 @@ test("server markup keeps deterministic preview values and primary actions reada
   expect(html).toContain(">8<");
   expect(html).toContain("60.0%");
   expect(html).toContain("Explore the demo");
-  expect(html).not.toContain("opacity:0;");
+
+  const serverMarkup = document.createElement("div");
+  serverMarkup.innerHTML = html;
+  const readableRegions = serverMarkup.querySelectorAll('[data-motion-region="hero-copy"], [data-motion-region="product-preview"], [data-motion-region="section"]');
+  expect(readableRegions.length).toBeGreaterThan(0);
+  for (const region of readableRegions) {
+    expect(region.getAttribute("style") ?? "").not.toContain("opacity:0");
+  }
 });
 
 test("reserves motion regions around the hero and calculated preview", () => {

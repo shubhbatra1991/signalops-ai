@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
+import { useLayoutEffect, useRef, type ReactNode } from "react";
 import {
   LazyMotion,
   MotionConfig,
   domAnimation,
   m,
   useAnimationControls,
-  useInView,
   usePageInView,
   useReducedMotion,
 } from "motion/react";
@@ -156,19 +155,28 @@ export function RevealSection({ children, className, id }: { children: ReactNode
   const reduced = Boolean(useReducedMotion());
   const controls = useAnimationControls();
   const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, amount: 0.16 });
 
   useLayoutEffect(() => {
     if (reduced || typeof IntersectionObserver === "undefined") {
       controls.set("visible");
       return;
     }
-    controls.set("hidden");
-  }, [controls, reduced]);
 
-  useEffect(() => {
-    if (inView) void controls.start("visible");
-  }, [controls, inView]);
+    const section = sectionRef.current;
+    if (!section) {
+      controls.set("visible");
+      return;
+    }
+
+    controls.set("hidden");
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return;
+      void controls.start("visible");
+      observer.disconnect();
+    }, { threshold: 0.16 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [controls, reduced]);
 
   return <m.section
     ref={sectionRef}
