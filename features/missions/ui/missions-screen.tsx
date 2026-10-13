@@ -38,12 +38,17 @@ export function MissionsScreen({ context, seed = {} }: { context: MissionContext
   useEffect(() => {
     const element = editor.current;
     if (editing !== undefined) element?.showModal();
+    else returnFocus.current?.focus();
     return () => { element?.close(); };
   }, [editing]);
   useEffect(() => { const element = resetDialog.current; if (resetting) element?.showModal(); return () => { element?.close(); }; }, [resetting]);
-  function close() { setEditing(undefined); setConfirmed(false); returnFocus.current?.focus(); }
-  function open(input: MissionInput, mission: Mission | null = null) {
-    returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  function close() {
+    editor.current?.close();
+    setEditing(undefined);
+    setConfirmed(false);
+  }
+  function open(input: MissionInput, mission: Mission | null = null, trigger?: HTMLElement) {
+    returnFocus.current = trigger ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null);
     setDraft(input); setEditing(mission); setConfirmed(false); setNotice("");
   }
   const linked = context.evidence.find((item) => item.reference.kind === seed.source && item.reference.project === seed.project && item.reference.range === seed.range && item.reference.evidenceId === seed.evidence);
@@ -98,7 +103,7 @@ export function MissionsScreen({ context, seed = {} }: { context: MissionContext
     </article>;
   }
   return <>
-    <div className="page-heading"><div><p className="eyebrow">Evidence to action</p><h1>Product Missions</h1><p className="page-description">Plan and track research work against fictional product evidence.</p></div><button className="primary-button" disabled={!ready || !snapshot.writable} onClick={() => open(blank(context.projects[0]?.id ?? ""))}>New Mission</button></div>
+    <div className="page-heading"><div><p className="eyebrow">Evidence to action</p><h1>Product Missions</h1><p className="page-description">Plan and track research work against fictional product evidence.</p></div><button className="primary-button" disabled={!ready || !snapshot.writable} onClick={(event) => open(blank(context.projects[0]?.id ?? ""), null, event.currentTarget)}>New Mission</button></div>
     <p className="data-notice">Demo evidence · Missions are stored only on this browser/device, not synced or backed up. Do not enter credentials, feedback excerpts or private customer data. Completion does not establish a successful outcome.</p>
     <p role="status">{notice || snapshot.message}</p>
     <section className="analytics-card mission-sources" aria-labelledby="mission-sources"><h2 id="mission-sources">Create from evidence or a reviewed draft</h2>

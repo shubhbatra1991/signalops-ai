@@ -46,7 +46,7 @@ export function ShellHeader() {
           mobileMenu.current.querySelector("summary")?.focus();
         }
       }}>
-        <summary aria-label="Toggle navigation">Menu<span aria-hidden="true"> ☰</span></summary>
+        <summary aria-label="Menu — toggle navigation">Menu<span aria-hidden="true"> ☰</span></summary>
         <nav aria-label="Mobile navigation"><Navigation onNavigate={() => { if (mobileMenu.current) mobileMenu.current.open = false; }} /></nav>
       </details>
     </div>

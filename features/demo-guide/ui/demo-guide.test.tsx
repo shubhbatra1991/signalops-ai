@@ -2,7 +2,7 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, expect, test, vi } from "vitest";
-import { buildDemoGuide, DEMO_GUIDE_DISMISSAL_KEY, GUIDE_FEEDBACK_THEME } from "../domain/guide";
+import { buildDemoGuide, DEMO_GUIDE_DISMISSAL_KEY, GUIDE_FEEDBACK_THEME, guidePreferenceBootstrap } from "../domain/guide";
 import { DemoGuide } from "./demo-guide";
 import { AiSessionProvider, useAiSession } from "@/features/ai/ui/ai-session";
 
@@ -10,6 +10,18 @@ const navigation = vi.hoisted(() => ({ push: vi.fn(), pathname: "/app" }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: navigation.push }), usePathname: () => navigation.pathname }));
 const guide = buildDemoGuide({ projectId: "demo-project-flowpilot", funnelId: "demo-funnel-onboarding", feedbackThemeId: GUIDE_FEEDBACK_THEME });
 afterEach(() => { cleanup(); localStorage.clear(); navigation.push.mockReset(); navigation.pathname = "/app"; vi.restoreAllMocks(); });
+
+test.each([[undefined, "available"], ["1", "dismissed"], ["invalid", "available"]])("pre-paint bootstrap restores guide preference %s", (saved, expected) => {
+  if (saved !== undefined) localStorage.setItem(DEMO_GUIDE_DISMISSAL_KEY, saved);
+  new Function(guidePreferenceBootstrap)();
+  expect(document.documentElement.dataset.demoGuide).toBe(expected);
+});
+
+test("pre-paint bootstrap safely offers the guide when storage is unavailable", () => {
+  vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => { throw new Error("blocked"); });
+  new Function(guidePreferenceBootstrap)();
+  expect(document.documentElement.dataset.demoGuide).toBe("available");
+});
 
 test("first run offers an optional guide and starts at Overview", async () => {
   render(<DemoGuide guide={guide} />);

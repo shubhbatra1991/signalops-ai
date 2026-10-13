@@ -17,7 +17,7 @@ export function LandingPage({ preview }: { preview: DemoScreenModel }) {
   return <div className="marketing-page">
     <a className="skip-link" href="#landing-main">Skip to main content</a>
     <header className="marketing-header">
-      <Link className="marketing-brand" href="/" aria-label="SignalOps-AI home"><span aria-hidden="true">S</span><strong>SignalOps</strong><small>AI</small></Link>
+      <Link className="marketing-brand" href="/"><span aria-hidden="true">S</span><strong>SignalOps</strong><small>AI</small></Link>
       <nav aria-label="Public navigation"><a href="#workflow">Workflow</a><a href="#features">Features</a><a href="#self-host">Self-host</a><a href="#licensing">Licensing</a></nav>
       <div className="marketing-header-actions"><ThemeControl /><Link className="secondary-button" href="/app">Open demo</Link></div>
     </header>
@@ -49,7 +49,7 @@ export function LandingPage({ preview }: { preview: DemoScreenModel }) {
         <div className="terminal-card" aria-label="Local setup commands"><div><i /><i /><i /><span>signalops-ai</span></div><pre><code><span>$</span> npm ci{"\n"}<span>$</span> npm run dev</code></pre><p>Then open <strong>http://localhost:3000</strong></p></div>
       </section>
       <section className="marketing-section license-section" id="licensing">
-        <p className="marketing-kicker">Licensing direction</p><h2>Open to inspect and self-host.</h2><p>The repository currently includes the MIT License. Product strategy intends free personal, educational, internal organisational, modification and self-hosting use; competing hosted offerings and commercial resale may require separate paid terms.</p><p>Final source-available wording and redistribution rights are <strong>pending legal review</strong>. The current <a className="text-link" href={`${sourceUrl}/blob/main/LICENSE`} target="_blank" rel="noreferrer">LICENSE</a> remains the operative public text until an approved change is published.</p>
+        <p className="marketing-kicker">Licensing</p><h2>MIT-licensed today.</h2><p>SignalOps-AI is currently distributed under the <a className="text-link" href={`${sourceUrl}/blob/main/LICENSE`} target="_blank" rel="noreferrer">MIT License</a>, which permits commercial use, modification, redistribution, and hosting subject to its terms.</p><p>We are evaluating alternative licensing arrangements for future releases, including separate commercial licensing for certain hosted or redistributed offerings. No additional commercial restrictions apply to the existing MIT-licensed release.</p>
       </section>
       <section className="final-cta"><p className="marketing-kicker">Start with the evidence</p><h2>See the full workflow with transparent demo data.</h2><p>Explore every calculation, inspect its source records, and decide where AI belongs.</p><div className="hero-actions"><Link className="primary-button" href="/app">Open SignalOps-AI <span aria-hidden="true">→</span></Link><a className="secondary-button" href={sourceUrl} target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></section>
     </main>

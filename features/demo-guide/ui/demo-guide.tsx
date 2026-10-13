@@ -4,17 +4,18 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { DEMO_GUIDE_DISMISSAL_KEY, type DemoGuideDescriptor } from "../domain/guide";
 
-type GuideState = "closed" | "welcome" | "active";
+type GuideState = "pending" | "closed" | "welcome" | "active";
 
 export function DemoGuide({ guide }: { guide: DemoGuideDescriptor }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [state, setState] = useState<GuideState>("closed");
+  const [state, setState] = useState<GuideState>("pending");
   const [stepIndex, setStepIndex] = useState(0);
   const launchButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     let dismissed = false;
     try { dismissed = window.localStorage.getItem(DEMO_GUIDE_DISMISSAL_KEY) === "1"; } catch { /* Safe default: offer the optional guide. */ }
+    document.documentElement.dataset.demoGuide = dismissed ? "dismissed" : "available";
     queueMicrotask(() => setState(dismissed ? "closed" : "welcome"));
   }, []);
   const step = guide.steps[stepIndex];
@@ -23,13 +24,22 @@ export function DemoGuide({ guide }: { guide: DemoGuideDescriptor }) {
   }
   function dismiss() {
     try { window.localStorage.setItem(DEMO_GUIDE_DISMISSAL_KEY, "1"); } catch { /* Closing still works when storage is unavailable. */ }
+    document.documentElement.dataset.demoGuide = "dismissed";
     setState("closed"); queueMicrotask(() => launchButton.current?.focus());
   }
   function restart() {
+    document.documentElement.dataset.demoGuide = "available";
     setStepIndex(0); setState("active"); router.push(guide.steps[0].href);
   }
   function move(index: number) { setStepIndex(index); router.push(guide.steps[index].href); }
 
+  if (state === "pending") return <div className="demo-guide-pending">
+    <section className="demo-guide demo-guide-welcome demo-guide-pending-welcome">
+      <div><p className="eyebrow">Optional guided demo</p><strong className="demo-guide-pending-title">See the evidence trail in six steps</strong><p>Follow real fictional records from calculated activity through mission planning and honest impact measurement. No account or AI key is required.</p></div>
+      <div className="demo-guide-actions"><span className="primary-button">Start guided demo</span><span className="secondary-button">Not now</span></div>
+    </section>
+    <div className="demo-guide-launch demo-guide-pending-launch"><span className="secondary-button"><span>?</span> Demo guide</span></div>
+  </div>;
   if (state === "closed") return <div className="demo-guide-launch"><button ref={launchButton} className="secondary-button" onClick={restart}><span aria-hidden="true">?</span> Demo guide</button></div>;
   if (state === "welcome") return <section className="demo-guide demo-guide-welcome" aria-labelledby="demo-guide-welcome-title">
     <div><p className="eyebrow">Optional guided demo</p><h2 id="demo-guide-welcome-title">See the evidence trail in six steps</h2><p>Follow real fictional records from calculated activity through mission planning and honest impact measurement. No account or AI key is required.</p></div>

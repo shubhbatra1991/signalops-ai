@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { guidePreferenceBootstrap } from "@/features/demo-guide/domain/guide";
 import { themeBootstrap } from "@/features/theme/theme-store";
 import { readCspNonce } from "@/server/security/security-headers";
 
@@ -37,10 +38,14 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-theme="light"
       data-theme-mode="light"
+      data-demo-guide="available"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head><script id="theme-init" nonce={nonce} dangerouslySetInnerHTML={{ __html: themeBootstrap }} /></head>
+      <head>
+        <script id="theme-init" nonce={nonce} dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        <script id="guide-init" nonce={nonce} dangerouslySetInnerHTML={{ __html: guidePreferenceBootstrap }} />
+      </head>
       <body>{children}</body>
     </html>
   );

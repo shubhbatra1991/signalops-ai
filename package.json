@@ -2,6 +2,15 @@
   "name": "signalops-ai",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shubhbatra1991/signalops-ai.git"
+  },
+  "engines": {
+    "node": ">=24.15.0 <25",
+    "npm": ">=10"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +18,11 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit --incremental false",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "e2e:chromium": "playwright test --project=chromium",
+    "e2e:a11y": "playwright test e2e/accessibility.spec.ts --project=chromium",
+    "e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "next": "16.4.0",
@@ -19,6 +32,8 @@
     "zod": "4.6.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.64.0",
     "@tailwindcss/turbopack": "^4",
     "@testing-library/dom": "10.4.2",
     "@testing-library/jest-dom": "7.0.1",

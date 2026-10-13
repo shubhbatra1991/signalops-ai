@@ -1,5 +1,6 @@
 export const DEMO_GUIDE_DISMISSAL_KEY = "signalops.demo-guide.dismissed";
 export const GUIDE_FEEDBACK_THEME = "integration-permissions";
+export const guidePreferenceBootstrap = `(()=>{let state="available";try{if(localStorage.getItem(${JSON.stringify(DEMO_GUIDE_DISMISSAL_KEY)})==="1")state="dismissed"}catch{}document.documentElement.dataset.demoGuide=state})();`;
 
 export interface DemoGuideStep {
   readonly id: "overview" | "funnel" | "feedback" | "ai" | "mission" | "impact";
