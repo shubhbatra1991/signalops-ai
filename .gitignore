@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+/.vitest/
+/playwright-report/
+/test-results/
+/blob-report/
 
 # next.js
 /.next/
@@ -32,6 +36,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!/.env.example
 
 # vercel
 .vercel
@@ -40,9 +45,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-docs/*
+/docs/
 AGENTS.md
 
 # Private engineering and agent documentation
 .internal/
-.github/copilot-instructions.md
+/.github/copilot-instructions.md
