@@ -134,7 +134,7 @@ export function StoryRail() {
           initial={reduced ? false : { opacity: 0.12, scale: 0.72, rotate: -8 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={reduced ? { duration: 0 } : { duration: 0.46, ease }}
-        ><AppIcon name={step.icon as AppIconName} size={28} /></m.span>
+        ><AppIcon name={step.icon as AppIconName} size={24} /></m.span>
       </div>
     </m.div>
   </div>;
