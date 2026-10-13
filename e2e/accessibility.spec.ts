@@ -18,6 +18,37 @@ test("landing page has no detectable WCAG A/AA violations", async ({ page }) => 
   await expectNoAxeViolations(page);
 });
 
+test("landing motion respects reduced motion at 320px", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  await expect(page.getByRole("link", { name: /Explore the demo/ })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  expect(await page.locator("[data-motion-region]").evaluateAll((regions) => regions.every((region) => getComputedStyle(region).opacity === "1"))).toBe(true);
+});
+
+test("hero motion does not contribute observable layout shift", async ({ page, browserName }) => {
+  test.skip(browserName !== "chromium", "LayoutShift performance entries are Chromium-only in this suite.");
+  await page.addInitScript(() => {
+    const state = window as typeof window & { __signalOpsLandingCls?: number };
+    state.__signalOpsLandingCls = 0;
+    if (!("PerformanceObserver" in window) || !PerformanceObserver.supportedEntryTypes.includes("layout-shift")) return;
+    new PerformanceObserver((list) => {
+      for (const entry of list.getEntries() as Array<PerformanceEntry & { hadRecentInput?: boolean; value?: number }>) {
+        if (!entry.hadRecentInput) state.__signalOpsLandingCls = (state.__signalOpsLandingCls ?? 0) + (entry.value ?? 0);
+      }
+    }).observe({ type: "layout-shift", buffered: true });
+  });
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: /Explore the demo/ })).toBeVisible();
+  await page.waitForFunction(() => [...document.querySelectorAll('[data-motion-region="hero-copy"], [data-motion-region="product-preview"]')]
+    .every((element) => getComputedStyle(element).opacity === "1"));
+
+  const cls = await page.evaluate(() => (window as typeof window & { __signalOpsLandingCls?: number }).__signalOpsLandingCls ?? 0);
+  expect(cls).toBeLessThanOrEqual(0.01);
+});
+
 test("experience selection has no detectable WCAG A/AA violations", async ({ page }) => {
   await page.goto("/start");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();

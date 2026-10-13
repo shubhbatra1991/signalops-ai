@@ -5,7 +5,7 @@
   "serialNumber": "urn:uuid:***",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-13T15:49:38.111Z",
+    "timestamp": "2026-10-13T16:14:37.118Z",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -6773,6 +6773,34 @@
       ]
     },
     {
+      "bom-ref": "framer-motion@14.2.0",
+      "type": "library",
+      "name": "framer-motion",
+      "version": "14.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/framer-motion@14.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/framer-motion/-/framer-motion-14.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "703da07c5ba31ede2bffe759a5c9f9cb38aeed54704004036a4c089bf6c80985db69f9e91c2628915f8f9c45ea12b9d276fe84876f1af92445f9fde774670cb1"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
       "bom-ref": "function-bind@1.1.2",
       "type": "library",
       "name": "function-bind",
@@ -9694,6 +9722,90 @@
         {
           "alg": "SHA-512",
           "content": "db2c8047ca8190ddd8ba17896a7529582e54ddb6f9a2c0f2c0d07c4730d5943c031dba1c009bdeaaa8f5bbcf92543ee39164f8cafb070a95aaa96a80c5bd3308"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "motion@14.2.0",
+      "type": "library",
+      "name": "motion",
+      "version": "14.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/motion@14.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/motion/-/motion-14.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e39703c23661d3238c66d9d7de12053c83e6cc25b3fd10b66c3fe7896548b2c1818c994c9a8b1b0c82c6f5af99ca83fadf9679c6b6cabeea35d2ca6ff5d05d9f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "motion-dom@14.2.0",
+      "type": "library",
+      "name": "motion-dom",
+      "version": "14.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/motion-dom@14.2.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/motion-dom/-/motion-dom-14.2.0.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "4c37719e301abe1d909b8950090237ba84f1f4847f21dd8f23c24d1175b701cc30576caf8688a6017dff4e713ec7cda00c77cfab6cb1fdc279f134f0e6632bd0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "motion-utils@14.1.1",
+      "type": "library",
+      "name": "motion-utils",
+      "version": "14.1.1",
+      "scope": "required",
+      "purl": "pkg:npm/motion-utils@14.1.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/motion-utils/-/motion-utils-14.1.1.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "dd5bcde54bdff01eaa1be39f3ae8ba361b79116a7ebcbb94dc8a9c023ec8b5918aaad9938c279b979b06645effd3c8041d19c497500ffdf2306dc13256b71019"
         }
       ],
       "licenses": [
@@ -14001,6 +14113,7 @@
       "ref": "signalops-ai@0.1.0",
       "dependsOn": [
         "lucide-react@1.56.0",
+        "motion@14.2.0",
         "next@16.4.0",
         "react@19.3.0",
         "react-dom@19.3.0",
@@ -15501,6 +15614,15 @@
       ]
     },
     {
+      "ref": "framer-motion@14.2.0",
+      "dependsOn": [
+        "react@19.3.0",
+        "react-dom@19.3.0",
+        "motion-dom@14.2.0",
+        "motion-utils@14.1.1"
+      ]
+    },
+    {
       "ref": "function-bind@1.1.2",
       "dependsOn": []
     },
@@ -16028,6 +16150,24 @@
     },
     {
       "ref": "minimist@1.2.8",
+      "dependsOn": []
+    },
+    {
+      "ref": "motion@14.2.0",
+      "dependsOn": [
+        "react@19.3.0",
+        "react-dom@19.3.0",
+        "framer-motion@14.2.0"
+      ]
+    },
+    {
+      "ref": "motion-dom@14.2.0",
+      "dependsOn": [
+        "motion-utils@14.1.1"
+      ]
+    },
+    {
+      "ref": "motion-utils@14.1.1",
       "dependsOn": []
     },
     {
