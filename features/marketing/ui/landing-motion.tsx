@@ -17,8 +17,8 @@ import { AppIcon, type AppIconName } from "@/features/icons/app-icon";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export const heroItemVariants = {
-  hidden: { y: 28 },
-  visible: { y: 0, transition: { duration: 0.64, ease } },
+  hidden: { y: 24 },
+  visible: { y: 0, transition: { duration: 0.56, ease } },
 };
 
 export function revealMotion(reduced: boolean, delay = 0, distance = 24) {
@@ -58,7 +58,7 @@ export function HeroContent({ sourceUrl }: { sourceUrl: string }) {
   const controls = useEntranceSequence(reduced);
   const containerVariants = {
     hidden: {},
-    visible: { transition: { delayChildren: 0.08, staggerChildren: 0.12 } },
+    visible: { transition: { delayChildren: 0.04, staggerChildren: 0.09 } },
   };
 
   return <m.div
@@ -84,17 +84,19 @@ export function HeroContent({ sourceUrl }: { sourceUrl: string }) {
 }
 
 const previewVariants = {
-  hidden: { y: 34, scale: 0.96 },
+  hidden: { y: 36, scale: 0.965, rotateX: 3, rotateY: -2 },
   visible: {
     y: 0,
     scale: 1,
-    transition: { duration: 0.82, delay: 0.28, ease },
+    rotateX: 0,
+    rotateY: 0,
+    transition: { duration: 0.76, delay: 0.24, ease },
   },
 };
 
 const previewItemVariants = {
-  hidden: { y: 12 },
-  visible: { y: 0, transition: { duration: 0.48, delay: 0.58, ease } },
+  hidden: { y: 12, scale: 0.98 },
+  visible: { y: 0, scale: 1, transition: { duration: 0.46, delay: 0.52, ease } },
 };
 
 export function AnimatedProductPreview({ preview }: { preview: DemoScreenModel }) {
@@ -108,11 +110,19 @@ export function AnimatedProductPreview({ preview }: { preview: DemoScreenModel }
     className="product-preview-motion"
     data-motion-region="product-preview"
     data-motion-sequence={reduced ? "reduced" : "cinematic"}
+    style={{ transformPerspective: 1200 }}
     initial={false}
     animate={controls}
     variants={previewVariants}
   >
     <div className="product-preview" aria-label="Calculated FlowPilot demonstration preview">
+      <m.span
+        className="preview-signal-sweep"
+        aria-hidden="true"
+        initial={reduced ? false : { x: "-130%", opacity: 0 }}
+        animate={reduced ? { opacity: 0 } : { x: "230%", opacity: [0, 0.42, 0] }}
+        transition={reduced ? { duration: 0 } : { duration: 0.82, delay: 1.05, ease }}
+      />
       <div className="preview-chrome"><span /><span /><span /><small>SignalOps-AI / Overview</small></div>
       <div className="preview-body">
         <aside aria-hidden="true"><b>S</b>{(["overview", "events", "funnels", "feedback", "insights", "missions"] as AppIconName[]).map((icon, index) => <i className={index === 0 ? "active" : ""} key={icon}><AppIcon name={icon} /></i>)}</aside>
@@ -130,7 +140,7 @@ export function AnimatedProductPreview({ preview }: { preview: DemoScreenModel }
             style={{ height: `${Math.max(8, day.events / max * 100)}%`, transformOrigin: "bottom" }}
             variants={{
               hidden: { scaleY: 0, opacity: 0.18 },
-              visible: (barIndex: number) => ({ scaleY: 1, opacity: 0.84, transition: { duration: 0.58, delay: 0.7 + barIndex * 0.035, ease } }),
+              visible: (barIndex: number) => ({ scaleY: 1, opacity: 0.84, transition: { duration: 0.62, delay: 0.66 + barIndex * 0.045, ease } }),
             }}
             title={`${day.date}: ${day.events} events`}
           />)}</div></div>
@@ -138,7 +148,7 @@ export function AnimatedProductPreview({ preview }: { preview: DemoScreenModel }
             <span className="preview-funnel-progress" aria-hidden="true"><m.i
               data-motion-preview="funnel"
               style={{ width: `${conversion}%`, transformOrigin: "left" }}
-              variants={{ hidden: { scaleX: 0, opacity: 0.3 }, visible: { scaleX: 1, opacity: 0.82, transition: { duration: 0.78, delay: 0.82, ease } } }}
+              variants={{ hidden: { scaleX: 0, opacity: 0.3 }, visible: { scaleX: 1, opacity: 0.82, transition: { duration: 0.72, delay: 0.94, ease } } }}
             /></span>
             <span><small>Selected funnel</small><strong>{preview.funnel?.name ?? "No configured funnel"}</strong></span>
             <em>{preview.funnel?.entrants ?? 0} entrants → {preview.funnel?.completed ?? 0} completed</em>
@@ -185,8 +195,8 @@ export function RevealSection({ children, className, id }: { children: ReactNode
     initial={false}
     animate={controls}
     variants={{
-      hidden: { y: 32 },
-      visible: { y: 0, transition: { duration: 0.72, ease } },
+      hidden: { y: 26 },
+      visible: { y: 0, transition: { duration: 0.62, ease } },
     }}
   >{children}</m.section>;
 }

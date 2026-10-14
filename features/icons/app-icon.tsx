@@ -14,6 +14,8 @@ import {
   Link2,
   Menu,
   MessageSquare,
+  Pause,
+  Play,
   Settings,
   ShieldCheck,
   SunMoon,
@@ -41,6 +43,8 @@ export type AppIconName =
   | "information"
   | "help"
   | "menu"
+  | "pause"
+  | "play"
   | "arrow-left"
   | "arrow-right";
 
@@ -63,6 +67,8 @@ const icons: Record<AppIconName, LucideIcon> = {
   information: Info,
   help: CircleHelp,
   menu: Menu,
+  pause: Pause,
+  play: Play,
   "arrow-left": ArrowLeft,
   "arrow-right": ArrowRight,
 };

@@ -13,7 +13,7 @@ describe("landing motion preferences", () => {
   });
 
   test("uses a visible hero movement without reducing text contrast", () => {
-    expect(heroItemVariants.hidden).toEqual({ y: 28 });
-    expect(heroItemVariants.visible).toMatchObject({ y: 0, transition: { duration: 0.64 } });
+    expect(heroItemVariants.hidden).toEqual({ y: 24 });
+    expect(heroItemVariants.visible).toMatchObject({ y: 0, transition: { duration: 0.56 } });
   });
 });
